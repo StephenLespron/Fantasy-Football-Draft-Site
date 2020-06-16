@@ -14,8 +14,7 @@ hash_pass text
 create table drafts (
 draft_id serial primary key,
 user_id integer references users(user_id),
-date date,
-
+date date
 );
 
 create table teams (
