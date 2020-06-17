@@ -8,7 +8,8 @@ drop table if exists users;
 create table users (
 user_id serial primary key,
 username varchar(30),
-hash_pass text
+hash_pass text,
+email varchar(100)
 );
 
 create table drafts (
@@ -20,8 +21,7 @@ date date
 create table teams (
 team_id serial primary key,
 user_id integer references users(user_id),
-team_name varchar(50),
-email varchar (100)
+team_name varchar(50)
 );
 
 create table players (
