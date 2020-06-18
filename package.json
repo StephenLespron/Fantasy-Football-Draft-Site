@@ -11,6 +11,7 @@
 		"axios": "^0.19.2",
 		"bcrypt": "^5.0.0",
 		"dotenv": "^8.2.0",
+		"espn-fantasy-football-api": "^0.15.0",
 		"express": "^4.17.1",
 		"express-session": "^1.17.1",
 		"massive": "^6.4.0",

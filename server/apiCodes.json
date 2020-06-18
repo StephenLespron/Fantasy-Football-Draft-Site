@@ -1,0 +1,10 @@
+{
+	"positions": [
+		{ "id": 1, "pos": "QB" },
+		{ "id": 2, "pos": "RB" },
+		{ "id": 3, "pos": "WR" },
+		{ "id": 4, "pos": "TE" },
+		{ "id": 16, "pos": "D/ST" },
+		{ "id": 5, "pos": "K" }
+	]
+}

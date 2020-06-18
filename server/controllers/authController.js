@@ -119,7 +119,7 @@ module.exports = {
 		req.session.destroy();
 
 		db.delete_user(+userId)
-			.then(res.sendStatus(200))
-			.catch(res.status(500).send('unable to delete account'));
+			.then(() => res.sendStatus(200))
+			.catch(() => res.status(500).send('unable to delete account'));
 	},
 };

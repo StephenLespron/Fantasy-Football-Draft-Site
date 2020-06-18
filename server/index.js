@@ -6,7 +6,8 @@ const express = require('express'),
 	app = express(),
 	{ SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 
-const authCtrl = require('./authController');
+const authCtrl = require('./controllers/authController'),
+	dataCtrl = require('./controllers/dataController');
 
 app.use(express.json());
 app.use(
@@ -26,6 +27,8 @@ app.get('/auth/getUser', authCtrl.getUser);
 app.put('/auth/updateUser/:userId', authCtrl.updateUser);
 app.delete('/auth/deleteUser/:userId', authCtrl.deleteUser);
 
+//Draft EPs
+app.post('/api/draft', dataCtrl.checkESPN);
 massive({
 	connectionString: CONNECTION_STRING,
 	ssl: { rejectUnauthorized: false },
