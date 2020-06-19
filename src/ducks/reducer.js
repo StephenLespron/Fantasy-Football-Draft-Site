@@ -17,6 +17,10 @@ export function login(user) {
 }
 
 export function logout() {
+	axios
+		.post('auth/logout')
+		.then(() => {})
+		.catch((err) => alert(err.response.data));
 	return {
 		type: LOGOUT_USER,
 		payload: initialState,
@@ -26,7 +30,7 @@ export function logout() {
 export function getUser() {
 	const user = axios.get(`auth/getUser`);
 
-	return { type: GET_USER, payload: user };
+	return { type: GET_USER, payload: user.data };
 }
 
 export default function (state = initialState, action) {
@@ -38,9 +42,9 @@ export default function (state = initialState, action) {
 		case GET_USER + '_PENDING':
 			return state;
 		case GET_USER + '_FULFILLED':
-			return { ...state, ...action.payload.data, isLoggedIn: true };
+			return { ...state, user: action.payload, isLoggedIn: true };
 		case GET_USER + '_REJECTED':
-			return { initialState };
+			return initialState;
 		default:
 			return initialState;
 	}

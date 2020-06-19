@@ -1,0 +1,15 @@
+* {
+	text-decoration: none;
+}
+.Header {
+	width: calc(100vw - (100 - 100vw));
+	height: 75px;
+	background-color: rgb(83, 0, 0);
+	color: white;
+	align-items: center;
+}
+
+.Header * {
+	align-items: center;
+	color: white;
+}

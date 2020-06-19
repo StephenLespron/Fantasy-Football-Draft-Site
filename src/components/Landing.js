@@ -52,7 +52,7 @@ function Landing(props) {
 				</div>
 			</form>
 			<a
-				class='twitter-timeline'
+				className='twitter-timeline'
 				href='https://twitter.com/FantasyPros'
 				data-tweet-limit='5'
 				data-width='399'>
@@ -61,7 +61,7 @@ function Landing(props) {
 			<script
 				async
 				src='http://platform.twitter.com/widgets.js'
-				charset='utf-8'></script>
+				charSet='utf-8'></script>
 		</div>
 	);
 }
