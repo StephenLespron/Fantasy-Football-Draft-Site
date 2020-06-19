@@ -1,0 +1,51 @@
+.Landing {
+	height: 100vh;
+	width: calc(100vw - (100 - 100vw));
+	background-color: grey;
+	background-image: url('./PngItem_5959932.png');
+	/* background-position: center; */
+	background-repeat: no-repeat;
+	background-size: 80%;
+	background-position: 150px -250px;
+}
+
+.Landing > h1 {
+	padding-top: 5px;
+	font-size: 60px;
+	width: calc(100vw - (100 - 100vw));
+	height: 70px;
+	background-color: rgb(83, 0, 0);
+	color: white;
+	border: 0 none;
+	box-shadow: 0px 2px 2px black;
+}
+
+.Landing div {
+	width: 100;
+}
+
+.loginBox {
+	font-size: larger;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 15px;
+	border: 0 none;
+	box-shadow: 0px 10px 12px 0px black;
+	height: 300px;
+	width: 25%;
+	min-width: 400px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.authBtn {
+	width: 50px;
+}
+.loginBox input {
+	width: 150px;
+}

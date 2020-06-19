@@ -30,18 +30,16 @@ function Header(props) {
 	}
 
 	return (
-		<div className='Header'>
+		<div
+			className='Header'
+			style={!props.isLoggedIn ? { display: 'none' } : {}}>
 			<div>
 				<img
 					alt='logo'
 					src={logo}
 					style={{ height: '70px', transform: 'scaleX(-1)' }}
 				/>
-				<h3>
-					{!props.user.username
-						? 'Not logged in'
-						: `Welcome, ${props.user.username}`}
-				</h3>
+				<h3>Welcome, {props.user.username}</h3>
 				<input type='button' value='Logout' onClick={() => logout()} />
 			</div>
 			<div>
