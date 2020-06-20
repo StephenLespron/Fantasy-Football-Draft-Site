@@ -17,7 +17,7 @@
 	background-color: rgb(83, 0, 0);
 	color: white;
 	border: 0 none;
-	box-shadow: 0px 2px 2px black;
+	box-shadow: 0px 3px 3px -2px black;
 }
 
 .Landing div {
@@ -25,15 +25,16 @@
 }
 
 .loginBox {
+	color: white;
 	font-size: larger;
-	background-color: white;
+	background-color: rgb(83, 0, 0);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	border-radius: 15px;
 	border: 0 none;
-	box-shadow: 0px 10px 12px 0px black;
+	box-shadow: 0 2px 5px 2px rgb(0, 0, 0);
 	height: 300px;
 	width: 25%;
 	min-width: 400px;
