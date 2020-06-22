@@ -28,7 +28,9 @@ export function logout() {
 }
 
 export function getUser() {
-	const user = axios.get(`auth/getUser`);
+	const user = axios
+		.get(`auth/getUser`)
+		.catch(() => console.log('No users logged in'));
 
 	return { type: GET_USER, payload: user.data };
 }

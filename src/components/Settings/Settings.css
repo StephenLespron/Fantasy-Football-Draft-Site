@@ -15,25 +15,29 @@
 	border-radius: 15px;
 	border: 0 none;
 	box-shadow: 0 2px 5px 2px rgb(0, 0, 0);
-	height: 300px;
+	height: 250px;
 	width: 45%;
 	min-width: 400px;
 	position: fixed;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
 #editBtn {
+	border-radius: 5px;
 	position: absolute;
 	top: 25px;
-	right: 25px;
+	right: 50px;
 	width: 60px;
 }
 
 .SettingsDisplay,
 .SettingsForm {
-	margin: 50px 0 0 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 50px 0 50px 50px;
 	text-align: left;
 	width: 50%;
 	height: 80%;
@@ -48,4 +52,52 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 10px;
+}
+
+#updateBtn {
+	border-radius: 5px;
+	align-self: flex-end;
+	bottom: 0px;
+	right: 0px;
+	width: 60px;
+}
+
+#deleteBtn {
+	border-radius: 5px;
+	position: absolute;
+	top: 25px;
+	background-color: rgb(83, 0, 0);
+	color: white;
+	width: 110px;
+}
+
+#deleteBtn:active,
+#updateBtn:active,
+#editBtn:active {
+	transform: translateY(2px);
+}
+
+#confirmDelete {
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	height: 70%;
+	width: 100%;
+	position: fixed;
+	top: 20%;
+	left: 0;
+	/* transform: translate(-50%, -50%); */
+}
+
+#confirmBtn {
+	border-radius: 5px;
+	font-size: larger;
+	margin-top: 20px;
+	top: 25px;
+	background-color: rgb(83, 0, 0);
+	color: white;
+	width: 110px;
 }

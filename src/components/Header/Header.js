@@ -12,9 +12,9 @@ function Header(props) {
 	let { getUser } = props;
 
 	useEffect(() => {
-		getUser();
+		setClicked(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [props.history.location.pathname]);
 
 	let logout = () => {
 		props.logout();
@@ -29,6 +29,11 @@ function Header(props) {
 		}
 	}
 
+	// window.onclick = function (ev) {
+	// 	if (clickedMenu) {
+	// 		setClicked(!clickedMenu);
+	// 	}
+	// };
 	return (
 		<div>
 			<div

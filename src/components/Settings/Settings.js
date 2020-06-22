@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { login, logout } from '../../ducks/reducer';
 import SettingsDisplay from './SettingsDisplay';
 import SettingsForm from './SettingsForm';
 import { connect } from 'react-redux';
@@ -7,12 +6,6 @@ import './Settings.css';
 
 function Settings(props) {
 	const [isEditing, toggleIsEditing] = useState(false);
-	const [username, setUser] = useState(props.user.username);
-	const [email, setEmail] = useState(props.user.email);
-	const [oldPassword, setOldPass] = useState();
-	const [newPassword, setNewPass] = useState();
-
-	let updateUser = () => {};
 
 	return (
 		<div className='Settings'>
@@ -20,21 +13,12 @@ function Settings(props) {
 				{!isEditing ? (
 					<SettingsDisplay />
 				) : (
-					<SettingsForm
-						username={username}
-						email={email}
-						oldPassword={oldPassword}
-						newPassword={newPassword}
-						setUser={setUser}
-						setEmail={setEmail}
-						setOldPass={setOldPass}
-						setNewPass={setNewPass}
-					/>
+					<SettingsForm toggleIsEditing={toggleIsEditing} />
 				)}
 				<input
 					id='editBtn'
 					type='button'
-					value={isEditing ? 'Update' : 'Edit Info'}
+					value={isEditing ? 'Cancel' : 'Edit Info'}
 					onClick={() => {
 						toggleIsEditing(!isEditing);
 					}}

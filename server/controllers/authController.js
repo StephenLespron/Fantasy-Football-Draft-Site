@@ -81,11 +81,9 @@ module.exports = {
 			{ username, email, oldPassword, newPassword } = req.body;
 
 		const [existingUser] = await db.check_user_id(+userId);
-		console.log(existingUser);
 
 		if (existingUser) {
 			const authUser = bcrypt.compareSync(oldPassword, existingUser.hash_pass);
-			console.log(authUser);
 			if (authUser) {
 				let password = newPassword;
 				if (!newPassword) {
@@ -99,13 +97,11 @@ module.exports = {
 					email,
 					hash,
 				]);
-				console.log(updatedUser);
 				req.session.user = {
 					userId: updatedUser.user_id,
 					username: updatedUser.username,
 					email: updatedUser.email,
 				};
-				console.log(req.session.user);
 				return res.status(200).send(req.session.user);
 			}
 		}
@@ -120,6 +116,6 @@ module.exports = {
 
 		db.delete_user(+userId)
 			.then(() => res.sendStatus(200))
-			.catch(() => res.status(500).send('unable to delete account'));
+			.catch(() => res.status(500).send('Unable to delete account.'));
 	},
 };
