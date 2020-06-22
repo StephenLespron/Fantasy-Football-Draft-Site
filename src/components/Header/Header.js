@@ -30,25 +30,18 @@ function Header(props) {
 	}
 
 	return (
-		<div
-			className='Header'
-			style={!props.isLoggedIn ? { display: 'none' } : {}}>
-			<div>
-				<img
-					alt='logo'
-					src={logo}
-					style={{ height: '70px', transform: 'scaleX(-1)' }}
-				/>
-				<h3>Welcome, {props.user.username}</h3>
-				<input type='button' value='Logout' onClick={() => logout()} />
-			</div>
-			<div>
-				<div style={!clickedMenu ? { display: 'none' } : { display: 'flex' }}>
-					<nav>
-						<Link>New Draft</Link>
-						<Link>Previous drafts</Link>
-						<Link>Settings</Link>
-					</nav>
+		<div>
+			<div
+				className='Header'
+				style={!props.isLoggedIn ? { display: 'none' } : {}}>
+				<div>
+					<img
+						alt='logo'
+						src={logo}
+						style={{ height: '70px', transform: 'scaleX(-1)' }}
+					/>
+					<h3>Welcome, {props.user.username}</h3>
+					<input type='button' value='Logout' onClick={() => logout()} />
 				</div>
 				<img
 					alt='menu button'
@@ -56,6 +49,19 @@ function Header(props) {
 					style={{ height: '30px' }}
 					onClick={() => toggleClicked()}
 				/>
+			</div>
+			<div className={!clickedMenu ? 'navMenu' : 'navMenuOpen navMenu'}>
+				<nav>
+					<Link to=''>
+						<li>New Draft</li>
+					</Link>
+					<Link to='/dashboard'>
+						<li>Previous drafts</li>
+					</Link>
+					<Link to='/settings'>
+						<li>Settings</li>
+					</Link>
+				</nav>
 			</div>
 		</div>
 	);

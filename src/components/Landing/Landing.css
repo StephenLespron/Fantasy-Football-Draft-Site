@@ -1,12 +1,11 @@
 .Landing {
 	height: 100vh;
 	width: calc(100vw - (100 - 100vw));
-	background-color: grey;
 	background-image: url('./PngItem_5959932.png');
 	/* background-position: center; */
 	background-repeat: no-repeat;
-	background-size: 80%;
-	background-position: 150px -250px;
+	background-size: contain;
+	background-position: center top -150px;
 }
 
 .Landing > h1 {
@@ -49,4 +48,22 @@
 }
 .loginBox input {
 	width: 150px;
+}
+
+#clickToReg {
+	color: rgb(173, 200, 230);
+	border: none;
+	background: none;
+	outline: none;
+}
+
+#clickToReg:hover {
+	cursor: pointer;
+}
+
+#clickToReg:active {
+	outline: none;
+	border: none;
+	transform: translateY(2px);
+	caret-color: transparent;
 }

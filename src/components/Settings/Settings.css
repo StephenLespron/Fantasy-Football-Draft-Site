@@ -1,0 +1,51 @@
+.Settings {
+	height: 100vh;
+	width: calc(100vw - (100% - 100vw));
+	background-color: grey;
+}
+
+#setBox {
+	color: black;
+	font-size: larger;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	border-radius: 15px;
+	border: 0 none;
+	box-shadow: 0 2px 5px 2px rgb(0, 0, 0);
+	height: 300px;
+	width: 45%;
+	min-width: 400px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#editBtn {
+	position: absolute;
+	top: 25px;
+	right: 25px;
+	width: 60px;
+}
+
+.SettingsDisplay,
+.SettingsForm {
+	margin: 50px 0 0 50px;
+	text-align: left;
+	width: 50%;
+	height: 80%;
+}
+
+.SettingsDisplay > p {
+	margin-bottom: 10px;
+}
+
+.SettingsForm > div {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
