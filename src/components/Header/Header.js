@@ -22,18 +22,9 @@ function Header(props) {
 	};
 
 	function toggleClicked() {
-		if (clickedMenu) {
-			setClicked(false);
-		} else {
-			setClicked(true);
-		}
+		setClicked(!clickedMenu);
 	}
 
-	// window.onclick = function (ev) {
-	// 	if (clickedMenu) {
-	// 		setClicked(!clickedMenu);
-	// 	}
-	// };
 	return (
 		<div>
 			<div
