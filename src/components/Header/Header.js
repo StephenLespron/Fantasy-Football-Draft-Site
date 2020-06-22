@@ -9,9 +9,8 @@ import './Header.css';
 function Header(props) {
 	let [clickedMenu, setClicked] = useState(false);
 
-	let { getUser } = props;
-
 	useEffect(() => {
+		props.getUser();
 		setClicked(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.history.location.pathname]);

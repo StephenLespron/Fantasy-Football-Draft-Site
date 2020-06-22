@@ -2,10 +2,10 @@
 	height: 100vh;
 	width: calc(100vw - (100 - 100vw));
 	background-image: url('./PngItem_5959932.png');
-	/* background-position: center; */
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center top -150px;
+	background-color: grey;
 }
 
 .Landing > h1 {
@@ -16,7 +16,7 @@
 	background-color: rgb(83, 0, 0);
 	color: white;
 	border: 0 none;
-	box-shadow: 0px 3px 3px -2px black;
+	box-shadow: 0 2px 5px 2px black;
 }
 
 .Landing div {

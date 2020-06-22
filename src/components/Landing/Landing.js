@@ -21,7 +21,13 @@ function Landing(props) {
 				props.login({ userId, username, email });
 				props.history.push('/dashboard');
 			})
-			.catch((err) => alert(err.response.data));
+			.catch((err) => {
+				alert(err.response.data);
+				if (err.response.data === 'A user is already logged in') {
+					props.getUser();
+					props.history.push('/dashboard');
+				}
+			});
 	};
 
 	let register = (ev) => {
