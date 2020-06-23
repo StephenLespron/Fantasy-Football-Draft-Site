@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout, getUser } from '../../ducks/reducer';
+import { logout } from '../../ducks/userReducer';
 import menu from './hamburger.png';
 import logo from './PngItem_5959932.png';
 import './Header.css';
@@ -10,7 +10,7 @@ function Header(props) {
 	let [clickedMenu, setClicked] = useState(false);
 
 	useEffect(() => {
-		props.getUser();
+		// props.getUser();
 		setClicked(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.history.location.pathname]);
@@ -28,7 +28,7 @@ function Header(props) {
 		<div>
 			<div
 				className='Header'
-				style={!props.isLoggedIn ? { display: 'none' } : {}}>
+				style={!props.user.isLoggedIn ? { display: 'none' } : {}}>
 				<div>
 					<img
 						alt='logo'
@@ -47,7 +47,7 @@ function Header(props) {
 			</div>
 			<div className={!clickedMenu ? 'navMenu' : 'navMenuOpen navMenu'}>
 				<nav>
-					<Link to=''>
+					<Link to='/new-draft'>
 						<li>New Draft</li>
 					</Link>
 					<Link to='/dashboard'>
@@ -62,8 +62,8 @@ function Header(props) {
 	);
 }
 
-let mapStateToProps = (state) => state;
+let mapStateToProps = (state) => {
+	return { user: state.user };
+};
 
-export default connect(mapStateToProps, { logout, getUser })(
-	withRouter(Header)
-);
+export default connect(mapStateToProps, { logout })(withRouter(Header));

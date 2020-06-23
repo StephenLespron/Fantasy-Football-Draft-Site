@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../../ducks/reducer';
+import { login } from '../../ducks/userReducer';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import './Settings.css';

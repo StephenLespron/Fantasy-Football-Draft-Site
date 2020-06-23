@@ -1,7 +1,7 @@
 import React from 'react';
 // import { useState, useEffect } from 'react';
 // import axios from 'axios';
-import { getUser } from '../ducks/reducer';
+import { getUser } from '../ducks/userReducer';
 import { connect } from 'react-redux';
 
 function Dashboard(props) {
@@ -21,6 +21,8 @@ function Dashboard(props) {
 	return <div>dashboard.js</div>;
 }
 
-let mapStateToProps = (state) => state;
+let mapStateToProps = (state) => {
+	return { user: state.user };
+};
 
 export default connect(mapStateToProps, { getUser })(Dashboard);

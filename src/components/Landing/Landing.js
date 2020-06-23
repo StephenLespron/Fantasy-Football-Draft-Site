@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { login, getUser } from '../../ducks/reducer';
+import { login, getUser } from '../../ducks/userReducer';
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
 import Register from './RegisterForm';

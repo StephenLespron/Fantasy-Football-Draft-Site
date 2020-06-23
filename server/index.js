@@ -30,6 +30,7 @@ app.put('/auth/updateUser/:userId', authCtrl.updateUser);
 app.delete('/auth/deleteUser/:userId', authCtrl.deleteUser);
 
 //Draft EPs
+app.post(`/api/createDraft/:userId`, dataCtrl.createDraft);
 app.post('/api/players', playerMiddleWare, playerCtrl.callESPN);
 app.get(`/api/drafts/:userId`, dataCtrl.getDrafts);
 

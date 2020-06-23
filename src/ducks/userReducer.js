@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const initialState = {
-	user: {},
+	userId: null,
+	username: '',
+	email: '',
 	isLoggedIn: false,
 };
 
@@ -38,13 +40,13 @@ export function getUser() {
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case LOGIN_USER:
-			return { ...state, user: action.payload, isLoggedIn: true };
+			return { ...state, ...action.payload, isLoggedIn: true };
 		case LOGOUT_USER:
 			return { ...state, ...action.payload };
 		case GET_USER + '_PENDING':
 			return state;
 		case GET_USER + '_FULFILLED':
-			return { ...state, user: action.payload, isLoggedIn: true };
+			return { ...state, ...action.payload, isLoggedIn: true };
 		case GET_USER + '_REJECTED':
 			return initialState;
 		default:

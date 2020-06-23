@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { logout } from '../../ducks/reducer';
+import { logout } from '../../ducks/userReducer';
 import './Settings.css';
 
 function SettingsDisplay(props) {
