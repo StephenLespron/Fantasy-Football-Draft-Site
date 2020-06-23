@@ -50,6 +50,6 @@ export default function (state = initialState, action) {
 		case GET_USER + '_REJECTED':
 			return initialState;
 		default:
-			return initialState;
+			return state;
 	}
 }

@@ -35,6 +35,6 @@ export default function (state = initialState, action) {
 				newDraftId: action.payload.draft,
 			};
 		default:
-			return initialState;
+			return state;
 	}
 }
