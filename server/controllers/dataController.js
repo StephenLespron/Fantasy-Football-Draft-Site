@@ -10,7 +10,11 @@ module.exports = {
 		async function addTeams(length) {
 			async function mapArr(elem) {
 				if (elem < length) {
-					await db.add_teams([draft.draft_id, teams[elem]]);
+					await db.add_teams([
+						draft.draft_id,
+						teams[elem].teamName,
+						teams[elem].keeperRound,
+					]);
 
 					let count = elem + 1;
 

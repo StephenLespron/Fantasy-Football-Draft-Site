@@ -1,3 +1,45 @@
-.NewDraft input {
-	margin-top: 300px;
+.NewDraft {
+	/* display: flex; */
+	height: 100vh;
+	width: calc(100vw - (100 - 100vw));
+	background-color: grey;
+}
+
+#NDInputBox {
+	display: flex;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#startBtn {
+	position: absolute;
+	top: -25px;
+	right: 10px;
+}
+
+.teamBox {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 60px;
+	width: 600px;
+	border: 1px solid black;
+	margin: 10px;
+	padding: 10px;
+	background-color: white;
+}
+
+.teamMasterBox {
+	display: flex;
+	flex-direction: column;
+}
+.teamBox > p {
+	/* margin: 0 5px; */
+}
+
+.keeperInput {
+	width: 20px;
+	text-align: center;
 }

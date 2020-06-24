@@ -20,7 +20,8 @@ date date not null default current_date
 create table teams (
 team_id serial primary key,
 draft_id integer references drafts(draft_id),
-team_name varchar(50)
+team_name varchar(50),
+keeper_rd int
 );
 
 create table players (

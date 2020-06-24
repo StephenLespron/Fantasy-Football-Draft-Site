@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { getTeams } from '../../ducks/draftReducer';
@@ -6,6 +6,28 @@ import './NewDraft.css';
 
 function NewDraft(props) {
 	const [teams, setTeams] = useState(new Array(12));
+
+	useEffect(() => {
+		let newArr = [...teams];
+		let teamNum = 0;
+
+		newArr = newArr.map((elem) => {
+			teamNum++;
+			return { teamName: ``, keeperRound: 1 };
+		});
+		setTeams(newArr);
+	}, []);
+
+	let updateTeams = (ev, ind) => {
+		ev.preventDefault();
+
+		let { name, value } = ev.target;
+		let newArr = [...teams];
+
+		newArr[ind][name] = +value ? +value : value;
+
+		setTeams(newArr);
+	};
 
 	let startDraft = (ev) => {
 		ev.preventDefault();
@@ -16,11 +38,46 @@ function NewDraft(props) {
 				props.getTeams(res.data.draftId, res.data.teams);
 				// props.history.push('/settings');
 				console.log(props.user);
+				console.log(props.draft);
 			});
 	};
+
+	let teamsListed = teams.map((elem, ind) => (
+		<div key={ind} className='teamBox'>
+			<p style={{ width: '25px', textAlign: 'right' }}>#{ind + 1} </p>
+			<p>Name: </p>
+			<input
+				type='text'
+				value={elem.teamName}
+				placeholder={`Team #${ind + 1}`}
+				name='teamName'
+				onChange={(ev) => updateTeams(ev, ind)}
+			/>
+			<p>Keeper Round: </p>
+			<input
+				className='keeperInput'
+				type='text'
+				value={elem.keeperRound}
+				name='keeperRound'
+				min='1'
+				max='16'
+				onChange={(ev) => updateTeams(ev, ind)}
+			/>
+		</div>
+	));
+
 	return (
 		<div className='NewDraft'>
-			<input type='button' onClick={(ev) => startDraft(ev)} />
+			<div id='NDInputBox'>
+				<input
+					id='startBtn'
+					type='button'
+					value='Start Draft'
+					onClick={(ev) => startDraft(ev)}
+				/>
+				<div className='teamMasterBox'>{teamsListed.slice(0, 6)}</div>
+				<div className='teamMasterBox'>{teamsListed.slice(6, 12)}</div>
+			</div>
 		</div>
 	);
 }
