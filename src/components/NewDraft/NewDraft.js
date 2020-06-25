@@ -36,10 +36,10 @@ function NewDraft(props) {
 			.then((res) => {
 				console.log(res.data);
 				props.getTeams(res.data.draftId, res.data.teams);
-				// props.history.push('/settings');
 				console.log(props.user);
-				console.log(props.draft);
-			});
+				props.history.push('/manager');
+			})
+			.catch((err) => console.log(err));
 	};
 
 	let teamsListed = teams.map((elem, ind) => (

@@ -33,6 +33,7 @@ app.delete('/auth/deleteUser/:userId', authCtrl.deleteUser);
 app.post(`/api/createDraft/:userId`, dataCtrl.createDraft);
 app.post('/api/players', playerMiddleWare, playerCtrl.callESPN);
 app.get(`/api/drafts/:userId`, dataCtrl.getDrafts);
+app.post('/api/addPlayer', dataCtrl.addPlayer);
 
 massive({
 	connectionString: CONNECTION_STRING,

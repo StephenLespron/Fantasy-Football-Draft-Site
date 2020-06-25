@@ -30,4 +30,5 @@ module.exports = {
 
 		res.status(200).send({ draftId: draft.draft_id, teams: teamsArray });
 	},
+	addPlayer: (req, res) => {},
 };

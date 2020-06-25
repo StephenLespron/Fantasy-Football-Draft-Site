@@ -1,0 +1,85 @@
+.Manager {
+	height: 100vh;
+	width: calc(100vw - (100 - 100vw));
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: gray;
+}
+
+.PlayerContainer {
+	/* height: 100vh;
+	width: calc(100vw - (100 - 100vw)); */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: gray;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+#inputBox {
+	display: flex;
+	justify-content: space-evenly;
+	width: 500px;
+	margin-top: 50px;
+}
+
+.pickInput {
+	width: 30px;
+	text-align: center;
+}
+
+.PlayersTable {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.PlayersBox {
+	height: 500px;
+	max-height: 500px;
+	width: 500px;
+	overflow-y: scroll;
+	border: 1px solid black;
+}
+
+.PlayersTable thead th {
+	position: sticky;
+	top: 0px;
+	background-color: black;
+	color: white;
+	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+	font-size: 20px;
+	padding: 2px 0;
+	font-weight: bold;
+}
+
+.PlayersTable > tr {
+	margin: 2px 0px;
+}
+
+.playerBox:nth-child(2n + 2) {
+	background-color: white;
+}
+
+.playerBox:nth-child(2n + 1) {
+	background-color: rgba(255, 0, 0, 0.239);
+}
+
+.playerBox {
+	height: 25px;
+	font-weight: bold;
+	cursor: pointer;
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+.playerBox td {
+	vertical-align: middle;
+}
