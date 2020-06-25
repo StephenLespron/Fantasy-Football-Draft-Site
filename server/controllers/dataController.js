@@ -14,6 +14,7 @@ module.exports = {
 						draft.draft_id,
 						teams[elem].teamName,
 						teams[elem].keeperRound,
+						teams[elem].draftOrder,
 					]);
 
 					let count = elem + 1;
@@ -30,5 +31,26 @@ module.exports = {
 
 		res.status(200).send({ draftId: draft.draft_id, teams: teamsArray });
 	},
-	addPlayer: (req, res) => {},
+	addPlayer: async (req, res) => {
+		let db = req.app.get('db');
+		let {
+			playerId,
+			firstName,
+			lastName,
+			team,
+			position,
+			teamId,
+			draftPickIndex,
+		} = req.body;
+
+		await db
+			.add_player([+playerId, firstName, lastName, team, position])
+			.then(() => {
+				db.join_player_team([+teamId, +playerId, +draftPickIndex]).catch(() =>
+					res.sendStatus(`unable to join teams`)
+				);
+				res.sendStatus(200);
+			})
+			.catch(() => res.status(500).send('Unable to add player to server'));
+	},
 };

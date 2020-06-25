@@ -9,7 +9,8 @@ const express = require('express'),
 const authCtrl = require('./controllers/authController'),
 	playerCtrl = require('./controllers/playerController'),
 	dataCtrl = require('./controllers/dataController'),
-	playerMiddleWare = require('./middleWares/playerMiddleWare');
+	playerMiddleWare = require('./middleWares/playerMiddleWare'),
+	addPlayerMiddleWare = require('./middleWares/addPlayerMiddleWare');
 
 app.use(express.json());
 app.use(
@@ -33,7 +34,7 @@ app.delete('/auth/deleteUser/:userId', authCtrl.deleteUser);
 app.post(`/api/createDraft/:userId`, dataCtrl.createDraft);
 app.post('/api/players', playerMiddleWare, playerCtrl.callESPN);
 app.get(`/api/drafts/:userId`, dataCtrl.getDrafts);
-app.post('/api/addPlayer', dataCtrl.addPlayer);
+app.post('/api/addPlayer', addPlayerMiddleWare, dataCtrl.addPlayer);
 
 massive({
 	connectionString: CONNECTION_STRING,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getTeams } from '../../ducks/draftReducer';
+import { startDraft } from '../../ducks/draftReducer';
 import './NewDraft.css';
 
 function NewDraft(props) {
@@ -13,7 +13,7 @@ function NewDraft(props) {
 
 		newArr = newArr.map((elem) => {
 			teamNum++;
-			return { teamName: ``, keeperRound: 1 };
+			return { teamName: ``, keeperRound: 1, draftOrder: teamNum };
 		});
 		setTeams(newArr);
 	}, []);
@@ -34,9 +34,7 @@ function NewDraft(props) {
 		axios
 			.post(`api/createDraft/${props.user.userId}`, { teams: [...teams] })
 			.then((res) => {
-				console.log(res.data);
-				props.getTeams(res.data.draftId, res.data.teams);
-				console.log(props.user);
+				props.startDraft(res.data.draftId, res.data.teams);
 				props.history.push('/manager');
 			})
 			.catch((err) => console.log(err));
@@ -83,4 +81,4 @@ function NewDraft(props) {
 }
 
 let mapStateToProps = (state) => state;
-export default connect(mapStateToProps, { getTeams })(NewDraft);
+export default connect(mapStateToProps, { startDraft })(NewDraft);

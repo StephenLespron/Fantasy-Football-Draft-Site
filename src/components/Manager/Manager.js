@@ -11,6 +11,7 @@ function Manager(props) {
 	const [pick, setPick] = useState(1);
 	const [filter, setFilter] = useState('');
 	const [availPlayers, setAvailPlayers] = useState([]);
+	const [onDeckArr, setOnDeck] = useState([]);
 	const [criteria, setCrit] = useState('name');
 	const [player, setPlayer] = useState({
 		playerId: null,
@@ -19,6 +20,8 @@ function Manager(props) {
 		team: 'TM',
 		position: 'pos',
 	});
+
+	let draftPick = round % 2 === 1 ? pick : 13 - pick;
 
 	useEffect(() => {
 		if (props.draft.availPlayers.length === 0) {
@@ -46,11 +49,15 @@ function Manager(props) {
 				})
 				.catch((err) => alert(err.response.data));
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	let filterPlayers = (sort) => {
+		let sortedPlayers = props.draft.availPlayers.sort((a, b) =>
+			a.adp > b.adp ? 1 : -1
+		);
 		setAvailPlayers(
-			props.draft.availPlayers
+			sortedPlayers
 				.filter((elem) => {
 					if (criteria === 'name') {
 						if (
@@ -86,12 +93,21 @@ function Manager(props) {
 	};
 
 	let draftPlayer = () => {
-		let { availPlayers } = props.draft;
+		let { availPlayers, teams } = props.draft;
 		let newAvail = availPlayers;
+
 		let [newDrafted] = newAvail.splice(
 			newAvail.findIndex((elem) => elem.playerId === player.playerId),
 			1
 		);
+
+		let { team_name, team_id } = teams[
+			teams.findIndex((elem) => elem.draft_order === draftPick)
+		];
+
+		newDrafted.fTeam = team_name;
+
+		newDrafted.pick = (round - 1) * 12 + pick;
 
 		setPlayer({
 			playerId: null,
@@ -100,14 +116,97 @@ function Manager(props) {
 			team: 'TM',
 			position: 'pos',
 		});
+
+		setRound(pick === 12 ? round + 1 : round);
+		setPick(pick === 12 ? 1 : pick + 1);
 		filterPlayers('');
 
-		props.draftPlayer(newDrafted, newAvail, []);
+		props.draftPlayer(newDrafted, newAvail);
+
+		let { playerId, firstName, lastName, team, position } = newDrafted;
+
+		axios
+			.post('api/addPlayer', {
+				playerId,
+				firstName,
+				lastName,
+				team,
+				position,
+				teamId: team_id,
+				draftPickIndex: pick,
+			})
+			.then(() => 'success')
+			.catch((err) => err.response.data);
 	};
+
+	let onDeck = () => {
+		let arr = [];
+		let trackRd = round;
+		let trackDP = trackRd % 2 === 1 ? pick : 13 - pick;
+
+		for (let i = 0; i < 3; i++) {
+			let trackRdLoop = pick + i > 12 ? round + 1 : round;
+			let trackDPLoop;
+
+			switch (trackRdLoop % 2 === 1) {
+				case true:
+					switch (pick + i > 12) {
+						case true:
+							trackDPLoop = 25 - (pick + i);
+							break;
+						case false:
+							trackDPLoop = pick + i;
+							break;
+						default:
+							console.log(`err`);
+					}
+					break;
+				case false:
+					switch (pick + i > 12) {
+						case true:
+							trackDPLoop = pick + i - 12;
+							break;
+						case false:
+							trackDPLoop = pick + i;
+							break;
+						default:
+							console.log(`err`);
+					}
+					break;
+				default:
+					console.log(`err`);
+			}
+			arr.push(
+				props.draft.teams[
+					props.draft.teams.findIndex(
+						(elem) => elem.draft_order === trackDPLoop
+					)
+				]
+			);
+		}
+
+		setOnDeck(
+			arr.map((elem, ind) => {
+				return (
+					<div key={pick + round + ind}>
+						<p>{ind > 0 ? `On Deck #${ind}` : `On The Clock`}</p>
+						<p>Pick: {(trackRd - 1) * 12 + trackDP + ind}</p>
+						<p>{elem.team_name}</p>
+					</div>
+				);
+			})
+		);
+	};
+	useEffect(() => {
+		onDeck();
+	}, [pick]);
 
 	return (
 		<div className='Manager'>
-			<RunningDraftList />
+			<div>
+				<RunningDraftList />
+				<div className='onDeck'>{onDeckArr}</div>
+			</div>
 			<div className='PlayerContainer'>
 				<div>
 					<select
@@ -168,10 +267,20 @@ function Manager(props) {
 						</thead>
 						<tr>
 							<td>
-								<input className='pickInput' type='number' value={round} />
+								<input
+									className='pickInput'
+									type='number'
+									value={round}
+									onChange={(ev) => setRound(+ev.target.value)}
+								/>
 							</td>
 							<td>
-								<input className='pickInput' type='number' value={pick} />
+								<input
+									className='pickInput'
+									type='number'
+									value={pick}
+									onChange={(ev) => setPick(+ev.target.value)}
+								/>
 							</td>
 							<td>{`${player.firstName} ${player.lastName} (${player.team}, ${player.position})`}</td>
 						</tr>
@@ -182,7 +291,6 @@ function Manager(props) {
 		</div>
 	);
 }
-
 let mapStateToProps = (state) => state;
 
 export default connect(mapStateToProps, { getPlayers, draftPlayer })(Manager);
