@@ -253,7 +253,7 @@ function Manager(props) {
 								<th>Pos.</th>
 							</tr>
 						</thead>
-						{availPlayers}
+						<tbody>{availPlayers}</tbody>
 					</table>
 				</div>
 				<div id='inputBox'>
@@ -265,25 +265,27 @@ function Manager(props) {
 								<th>Player</th>
 							</tr>
 						</thead>
-						<tr>
-							<td>
-								<input
-									className='pickInput'
-									type='number'
-									value={round}
-									onChange={(ev) => setRound(+ev.target.value)}
-								/>
-							</td>
-							<td>
-								<input
-									className='pickInput'
-									type='number'
-									value={pick}
-									onChange={(ev) => setPick(+ev.target.value)}
-								/>
-							</td>
-							<td>{`${player.firstName} ${player.lastName} (${player.team}, ${player.position})`}</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td>
+									<input
+										className='pickInput'
+										type='number'
+										value={round}
+										onChange={(ev) => setRound(+ev.target.value)}
+									/>
+								</td>
+								<td>
+									<input
+										className='pickInput'
+										type='number'
+										value={pick}
+										onChange={(ev) => setPick(+ev.target.value)}
+									/>
+								</td>
+								<td>{`${player.firstName} ${player.lastName} (${player.team}, ${player.position})`}</td>
+							</tr>
+						</tbody>
 					</table>
 					<input type='button' value='Submit' onClick={() => draftPlayer()} />
 				</div>

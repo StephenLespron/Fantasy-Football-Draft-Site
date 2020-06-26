@@ -61,7 +61,7 @@ function RunningDraftList(props) {
 							<th>Player</th>
 						</tr>
 					</thead>
-					{displayPlayers}
+					<tbody>{displayPlayers}</tbody>
 				</table>
 			</div>
 		</div>

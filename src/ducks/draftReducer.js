@@ -58,6 +58,7 @@ export default function (state = initialState, action) {
 		case START_DRAFT:
 			return {
 				...state,
+				draftedPlayers: [],
 				teams: action.payload.teams,
 				newDraftId: action.payload.draft,
 			};
