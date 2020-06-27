@@ -75,8 +75,32 @@ module.exports = {
 			players[i].adp = i + 1;
 		}
 
+		players.map((el, ind) => {
+			res.locals.drafted.map((el2) => {
+				if (el.playerId === el2.player_id) {
+					players.splice(ind, 1);
+				}
+			});
+		});
+
 		//stores players on session to reduce full API calls
 		req.session.players = players;
-		return res.status(200).send(req.session.players);
+
+		if (res.locals.drafted) {
+			console.log('all');
+			res.status(200).send({
+				avail: req.session.players,
+				drafted: res.locals.drafted,
+				teams: res.locals.teams,
+			});
+		} else if (!res.locals.drafted) {
+			console.log('just avail');
+			res
+				.status(200)
+				.send({ avail: req.session.players, drafted: [], teams: [] });
+		} else {
+			console.log('failed');
+			res.status(500).send(() => `${res.locals}, ${req.session}`);
+		}
 	},
 };

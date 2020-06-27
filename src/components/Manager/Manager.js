@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getPlayers } from '../../ducks/draftReducer';
 import axios from 'axios';
@@ -26,11 +28,12 @@ function Manager(props) {
 	useEffect(() => {
 		if (props.draft.availPlayers.length === 0) {
 			axios
-				.post('api/players')
+				.post(`api/players/${props.match.params.draftId}`)
 				.then((res) => {
-					props.getPlayers(res.data);
+					const { drafted, avail, teams } = res.data;
+					props.getPlayers(drafted, avail, teams, props.match.params.draftId);
 					setAvailPlayers(
-						res.data.map((elem) => {
+						res.data.avail.map((elem) => {
 							return (
 								<tr
 									key={elem.playerId}
@@ -47,12 +50,15 @@ function Manager(props) {
 						})
 					);
 				})
-				.catch((err) => alert(err.response.data));
+				.catch((err) => alert(`failed`));
+		} else {
+			filterPlayers('');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [props.draft.availPlayers]);
 
 	let filterPlayers = (sort) => {
+		console.log('filter:', props.draft.availPlayers);
 		let sortedPlayers = props.draft.availPlayers.sort((a, b) =>
 			a.adp > b.adp ? 1 : -1
 		);
@@ -107,7 +113,7 @@ function Manager(props) {
 
 		newDrafted.fTeam = team_name;
 
-		newDrafted.pick = (round - 1) * 12 + pick;
+		newDrafted.draftPickIndex = (round - 1) * 12 + pick;
 
 		setPlayer({
 			playerId: null,
@@ -123,7 +129,14 @@ function Manager(props) {
 
 		props.draftPlayer(newDrafted, newAvail);
 
-		let { playerId, firstName, lastName, team, position } = newDrafted;
+		let {
+			playerId,
+			firstName,
+			lastName,
+			team,
+			position,
+			draftPickIndex,
+		} = newDrafted;
 
 		axios
 			.post('api/addPlayer', {
@@ -133,7 +146,7 @@ function Manager(props) {
 				team,
 				position,
 				teamId: team_id,
-				draftPickIndex: pick,
+				draftPickIndex,
 			})
 			.then(() => 'success')
 			.catch((err) => err.response.data);
@@ -198,11 +211,24 @@ function Manager(props) {
 		);
 	};
 	useEffect(() => {
-		onDeck();
+		if (availPlayers.length > 0) {
+			if (pick >= 1 && pick <= 12) {
+				onDeck();
+			}
+		}
 	}, [pick]);
 
 	return (
 		<div className='Manager'>
+			<p>
+				Go to localhost:3000/#/draftBoard/draft/{`${props.draft.draftId}`} to
+				view the draftboard.
+			</p>
+			<Link
+				to={`/draftBoard/draft/${props.match.params.draftId}`}
+				target='_blank'>
+				<p> or Click here!</p>
+			</Link>
 			<div>
 				<RunningDraftList />
 				<div className='onDeck'>{onDeckArr}</div>
@@ -271,7 +297,9 @@ function Manager(props) {
 									<input
 										className='pickInput'
 										type='number'
-										value={round}
+										min='1'
+										max='16'
+										value={+round}
 										onChange={(ev) => setRound(+ev.target.value)}
 									/>
 								</td>
@@ -279,7 +307,9 @@ function Manager(props) {
 									<input
 										className='pickInput'
 										type='number'
-										value={pick}
+										min={1}
+										max={12}
+										value={+pick}
 										onChange={(ev) => setPick(+ev.target.value)}
 									/>
 								</td>

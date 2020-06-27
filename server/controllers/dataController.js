@@ -53,4 +53,21 @@ module.exports = {
 			})
 			.catch(() => res.status(500).send('Unable to add player to server'));
 	},
+	getDraftedPlayers: async (req, res) => {
+		const db = req.app.get('db'),
+			{ draftId } = req.params;
+
+		let players = await db.get_draft_players(+draftId);
+		let teams = await db.get_draft_teams(+draftId);
+
+		res.status(200).send({ players, teams });
+	},
+	delPlayer: (req, res) => {
+		const db = req.app.get('db'),
+			{ playerId } = req.params;
+
+		db.remove_player(+playerId)
+			.then(() => res.sendStatus(200))
+			.catch(() => res.status(500).send('Unable to remove'));
+	},
 };

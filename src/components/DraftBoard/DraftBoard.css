@@ -1,0 +1,116 @@
+.DraftBoard {
+	overflow: hidden;
+}
+
+.DraftBoard table {
+	table-layout: fixed;
+	width: 1920px;
+	height: 1080px;
+	border: 2px solid black;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 0px;
+}
+
+.DraftBoard table td {
+	max-height: calc(100% / 16);
+	border-top: 1px solid grey;
+	border-right: 0.5px dotted grey;
+	word-wrap: normal;
+}
+
+.DraftBoard tr {
+	font-size: 18px;
+	font-weight: bold;
+	height: calc(63px);
+}
+
+.DraftBoard th,
+.DraftBoard td {
+	text-align: center;
+	vertical-align: middle;
+	white-space: pre-wrap;
+}
+
+.DraftBoard td:nth-child(2n + 3) {
+	background-color: rgba(128, 128, 128, 0.308);
+}
+
+.DraftBoard .new-pick-alert {
+	text-align: center;
+	z-index: 5;
+	height: 0vh;
+	width: 0vw;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	font-size: calc(25px + 10vh);
+	vertical-align: middle;
+	white-space: pre-wrap;
+	overflow: hidden;
+}
+
+.DraftBoard .pop-up-ani {
+	animation: pop-up 10s 1;
+}
+
+.DraftBoard .new-pick-alert2 {
+	vertical-align: middle;
+}
+
+.DraftBoard #oTC {
+	height: 100%;
+	width: 280px;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+.DraftBoard #teamNames {
+	height: 25px;
+	border: 2px solid grey;
+	font-size: 22px;
+}
+
+.DraftBoard .rdColumn {
+	height: 25px;
+	width: 35px;
+	border: 2px solid grey;
+	border-collapse: collapse;
+	font-size: 2vmin;
+}
+
+.DraftBoard #teamNames,
+.DraftBoard .rdColumn {
+	background-color: rgb(85, 4, 4);
+	color: gold;
+}
+
+@keyframes pop-up {
+	0% {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 50vw;
+	}
+
+	5%,
+	95% {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 50vh;
+		width: 50vw;
+		border: 10px solid rgb(85, 4, 4);
+		border-radius: 5px;
+	}
+
+	100% {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 0px;
+	}
+}

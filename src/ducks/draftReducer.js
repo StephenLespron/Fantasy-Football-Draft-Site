@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const initialState = {
-	newDraftId: null,
+	draftId: null,
 	drafts: [],
 	availPlayers: [],
 	teams: [],
@@ -42,10 +42,10 @@ export function undraftPlayer(drafted, avail) {
 	};
 }
 
-export function getPlayers(players) {
+export function getPlayers(drafted, avail, teams, draftId) {
 	return {
 		type: GET_PLAYERS,
-		payload: players,
+		payload: { avail, drafted, teams, draftId },
 	};
 }
 
@@ -65,7 +65,10 @@ export default function (state = initialState, action) {
 		case GET_PLAYERS:
 			return {
 				...state,
-				availPlayers: action.payload,
+				availPlayers: action.payload.avail,
+				draftedPlayers: action.payload.drafted,
+				teams: action.payload.teams,
+				draftId: +action.payload.draftId,
 			};
 		case DRAFT_PLAYER:
 			return {
