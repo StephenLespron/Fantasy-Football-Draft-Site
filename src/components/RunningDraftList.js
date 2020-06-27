@@ -15,8 +15,8 @@ function RunningDraftList(props) {
 
 		let [newAvail] = newDrafted.splice(index, 1);
 
-		delete newAvail.fTeam;
-		delete newAvail.pick;
+		delete newAvail.teamName;
+		delete newAvail.draft_pickIndex;
 
 		axios
 			.delete(`api/removePlayer/${playerId}`)
@@ -27,23 +27,22 @@ function RunningDraftList(props) {
 
 	function displayPlayers() {
 		let arr = props.draft.draftedPlayers.sort((a, b) =>
-			a.draftPickIndex < b.draftPickIndex ? 1 : -1
+			a.draft_pickIndex < b.draft_pickIndex ? 1 : -1
 		);
 
 		arr = arr.map((elem, ind) => {
-			if (elem.player_id) {
-				console.log('players:', elem);
+			if (elem.playerId) {
 				return (
 					<tr
 						key={elem.playerId}
 						className='playerBox'
 						onDoubleClick={() => undraftPlayer(elem.playerId)}>
-						<td>{`${Math.floor((elem.draft_pick_index - 1) / 12) + 1}.${
-							((elem.draft_pick_index - 1) % 12) + 1
+						<td>{`${Math.floor((elem.draft_pickIndex - 1) / 12) + 1}.${
+							((elem.draft_pickIndex - 1) % 12) + 1
 						}`}</td>
-						<td>{elem.team_name}</td>
+						<td>{elem.teamName}</td>
 						<td>
-							{`${elem.first_name} ${elem.last_name} (${elem.team}, ${elem.position})`}{' '}
+							{`${elem.firstName} ${elem.lastName} (${elem.team}, ${elem.position})`}{' '}
 						</td>
 					</tr>
 				);
