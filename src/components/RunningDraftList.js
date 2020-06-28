@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -46,12 +47,14 @@ function RunningDraftList(props) {
 			a.draft_pick_index < b.draft_pick_index ? 1 : -1
 		);
 
+		// eslint-disable-next-line array-callback-return
 		arr = arr.map((elem, ind) => {
 			if (elem.player_id) {
 				return (
 					<tr
 						key={elem.player_id}
 						className='playerBox'
+						style={!props.user.isLoggedIn ? { pointerEvents: 'none' } : {}}
 						onDoubleClick={() => undraftPlayer(elem.player_id)}>
 						<td>{`${Math.floor((elem.draft_pick_index - 1) / 12) + 1}.${
 							((elem.draft_pick_index - 1) % 12) + 1

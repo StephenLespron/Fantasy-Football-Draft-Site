@@ -8,6 +8,7 @@ module.exports = (req, res, next) => {
 		//removes drafted players
 		let filterPlayers = req.session.players.filter((el) => {
 			let filter = true;
+			// eslint-disable-next-line array-callback-return
 			res.locals.drafted.map((el2) => {
 				if (el.playerId === el2.player_id) {
 					filter = false;
@@ -20,7 +21,7 @@ module.exports = (req, res, next) => {
 		console.log('players: middleware');
 		res.status(200).send({
 			avail: filterPlayers,
-			drafted: res.locals.drafted,
+			drafted: drafted,
 		});
 	} else {
 		console.log('players: all');

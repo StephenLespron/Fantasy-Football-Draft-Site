@@ -81,6 +81,7 @@ module.exports = {
 		//removes drafted players
 		let filterPlayers = players.filter((el) => {
 			let filter = true;
+			// eslint-disable-next-line array-callback-return
 			res.locals.drafted.map((el2) => {
 				if (el.playerId === el2.player_id) {
 					filter = false;

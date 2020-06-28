@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const initialState = {
 	availPlayers: [],
 	teams: [],
@@ -18,10 +16,10 @@ export function startDraft(teams) {
 		payload: teams,
 	};
 }
-export function loadDraft(teams) {
+export function loadDraft(teams, drafted) {
 	return {
 		type: LOAD_DRAFT,
-		payload: teams,
+		payload: { teams, drafted },
 	};
 }
 
@@ -58,12 +56,12 @@ export default function (state = initialState, action) {
 				...state,
 				availPlayers: action.payload.avail,
 				draftedPlayers: action.payload.drafted,
-				// teams: action.payload.teams,
 			};
 		case LOAD_DRAFT:
 			return {
 				...initialState,
-				teams: action.payload,
+				teams: action.payload.teams,
+				draftedPlayers: action.payload.drafted,
 			};
 		case DRAFT_PLAYER:
 			return {

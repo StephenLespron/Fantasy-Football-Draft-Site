@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { loadDraft } from '../../ducks/draftReducer';
+import { startDraft } from '../../ducks/draftReducer';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
@@ -13,7 +14,7 @@ function Dashboard(props) {
 		axios
 			.get(`api/getTeams/${draftId}`)
 			.then((res) => {
-				props.loadDraft(res.data);
+				props.startDraft(res.data);
 			})
 			.catch((err) => alert(err.response.data));
 	}
@@ -59,4 +60,4 @@ function Dashboard(props) {
 
 let mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { loadDraft })(Dashboard);
+export default connect(mapStateToProps, { startDraft })(Dashboard);
