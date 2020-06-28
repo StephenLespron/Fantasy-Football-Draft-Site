@@ -55,7 +55,7 @@ module.exports = {
 					team: team,
 					position: position,
 					adp: +elem.player.ownership.averageDraftPosition,
-					projPPG: +elem.player.stats[
+					ppg: +elem.player.stats[
 						elem.player.stats.findIndex((ind) => +ind.id === 102020)
 					].appliedAverage.toFixed(2),
 				};
@@ -75,31 +75,30 @@ module.exports = {
 			players[i].adp = i + 1;
 		}
 
-		players.map((el, ind) => {
+		//stores players on session to reduce full API calls
+		req.session.players = players.map((el) => el);
+
+		//removes drafted players
+		let filterPlayers = players.filter((el) => {
+			let filter = true;
 			res.locals.drafted.map((el2) => {
 				if (el.playerId === el2.player_id) {
-					players.splice(ind, 1);
+					filter = false;
 				}
 			});
+
+			return filter;
 		});
 
-		//stores players on session to reduce full API calls
-		req.session.players = players;
-
 		if (res.locals.drafted) {
-			console.log('all');
 			res.status(200).send({
-				avail: req.session.players,
+				avail: filterPlayers,
 				drafted: res.locals.drafted,
-				teams: res.locals.teams,
 			});
 		} else if (!res.locals.drafted) {
-			console.log('just avail');
-			res
-				.status(200)
-				.send({ avail: req.session.players, drafted: [], teams: [] });
+			res.status(200).send({ avail: filterPlayers, drafted: [] });
 		} else {
-			console.log('failed');
+			console.log('players: failed');
 			res.status(500).send(() => `${res.locals}, ${req.session}`);
 		}
 	},

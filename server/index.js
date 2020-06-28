@@ -36,17 +36,14 @@ app.post(`/api/createDraft/:userId`, dataCtrl.createDraft);
 app.get(`/api/drafts/:userId`, dataCtrl.getDrafts);
 app.post(
 	'/api/players/:draftId',
-	playerMiddleWare,
 	draftedPlayersMiddleWare,
+	playerMiddleWare,
 	playerCtrl.callESPN
 );
 app.post('/api/addPlayer', addPlayerMiddleWare, dataCtrl.addPlayer);
-app.delete(
-	'/api/removePlayer/:playerId',
-	addPlayerMiddleWare,
-	dataCtrl.delPlayer
-);
+app.delete('/api/removePlayer/:playerId', dataCtrl.delPlayer);
 app.get(`/api/draftedPlayers/:draftId`, dataCtrl.getDraftedPlayers);
+app.get(`/api/getTeams/:draftId`, dataCtrl.getTeams);
 
 massive({
 	connectionString: CONNECTION_STRING,

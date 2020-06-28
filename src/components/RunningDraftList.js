@@ -6,38 +6,53 @@ import { undraftPlayer } from '../ducks/draftReducer';
 function RunningDraftList(props) {
 	const [draftedArr, setDrafted] = useState([]);
 
-	let undraftPlayer = (playerId) => {
+	let undraftPlayer = (id) => {
 		let { draftedPlayers } = props.draft;
 
 		let newDrafted = draftedPlayers;
 
-		let index = newDrafted.findIndex((elem) => elem.playerId === playerId);
+		let index = newDrafted.findIndex((elem) => elem.player_id === id);
 
 		let [newAvail] = newDrafted.splice(index, 1);
 
-		delete newAvail.fTeam;
+		let {
+			adp,
+			first_name: firstName,
+			last_name: lastName,
+			player_id: playerId,
+			position,
+			team,
+		} = newAvail;
+
+		delete newAvail.team_name;
 		delete newAvail.pick;
 
 		axios
-			.delete(`api/removePlayer/${playerId}`)
+			.delete(`api/removePlayer/${id}`)
 			.catch((err) => alert(err.response.data));
 
-		props.undraftPlayer(newDrafted, newAvail);
+		props.undraftPlayer(newDrafted, {
+			firstName,
+			lastName,
+			playerId,
+			position,
+			team,
+			adp,
+		});
 	};
 
 	function displayPlayers() {
 		let arr = props.draft.draftedPlayers.sort((a, b) =>
-			a.draftPickIndex < b.draftPickIndex ? 1 : -1
+			a.draft_pick_index < b.draft_pick_index ? 1 : -1
 		);
 
 		arr = arr.map((elem, ind) => {
 			if (elem.player_id) {
-				console.log('players:', elem);
 				return (
 					<tr
-						key={elem.playerId}
+						key={elem.player_id}
 						className='playerBox'
-						onDoubleClick={() => undraftPlayer(elem.playerId)}>
+						onDoubleClick={() => undraftPlayer(elem.player_id)}>
 						<td>{`${Math.floor((elem.draft_pick_index - 1) / 12) + 1}.${
 							((elem.draft_pick_index - 1) % 12) + 1
 						}`}</td>
@@ -53,7 +68,9 @@ function RunningDraftList(props) {
 	}
 
 	useEffect(() => {
-		displayPlayers();
+		if (props.draft.draftedPlayers) {
+			displayPlayers();
+		}
 	}, [props.draft.draftedPlayers]);
 
 	return (

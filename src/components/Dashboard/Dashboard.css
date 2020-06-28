@@ -1,0 +1,5 @@
+.Dashboard {
+	height: calc(100);
+	width: calc(100vw - (100vw - 100%));
+	padding-top: 75px;
+}
