@@ -1,0 +1,8 @@
+.TeamPage {
+	display: flex;
+	flex-direction: column;
+}
+
+.Roster {
+	display: flex;
+}

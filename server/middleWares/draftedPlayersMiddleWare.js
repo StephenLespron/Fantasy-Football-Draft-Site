@@ -3,11 +3,6 @@ module.exports = async (req, res, next) => {
 		{ draftId } = req.params;
 	let drafted = await db.get_draft_players(+draftId);
 
-	if (drafted) {
-		res.locals.drafted = drafted;
-		res.locals.teams = await db.return_teams(+draftId);
-		next();
-	} else {
-		next();
-	}
+	res.locals.drafted = drafted;
+	next();
 };

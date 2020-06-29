@@ -35,7 +35,7 @@ function NewDraft(props) {
 			.post(`api/createDraft/${props.user.userId}`, { teams: [...teams] })
 			.then((res) => {
 				props.startDraft(res.data.draftId, res.data.teams);
-				props.history.push('/manager');
+				props.history.push(`/draft/${res.data.draftId}/manager`);
 			})
 			.catch((err) => console.log(err));
 	};

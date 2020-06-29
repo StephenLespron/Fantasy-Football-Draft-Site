@@ -1,5 +1,20 @@
 module.exports = {
-	getDrafts: () => {},
+	getDrafts: (req, res) => {
+		const db = req.app.get('db'),
+			{ userId } = req.params;
+
+		db.get_drafts(+userId)
+			.then((data) => res.status(200).send(data))
+			.catch(() => res.status(500).send('Unable to get drafts from server'));
+	},
+	getTeams: (req, res) => {
+		const db = req.app.get('db'),
+			{ draftId } = req.params;
+
+		db.return_teams(+draftId)
+			.then((data) => res.status(200).send(data))
+			.catch(() => res.status(500).send('Unable to get teams from server'));
+	},
 	createDraft: async (req, res) => {
 		const db = req.app.get('db');
 		const { userId } = req.params,
@@ -32,6 +47,7 @@ module.exports = {
 		res.status(200).send({ draftId: draft.draft_id, teams: teamsArray });
 	},
 	addPlayer: async (req, res) => {
+		console.log(req.body);
 		let db = req.app.get('db');
 		let {
 			playerId,
@@ -41,14 +57,20 @@ module.exports = {
 			position,
 			teamId,
 			draftPickIndex,
+			adp,
+			ppg,
 		} = req.body;
 
 		await db
 			.add_player([+playerId, firstName, lastName, team, position])
 			.then(() => {
-				db.join_player_team([+teamId, +playerId, +draftPickIndex]).catch(() =>
-					res.sendStatus(`unable to join teams`)
-				);
+				db.join_player_team([
+					+teamId,
+					+playerId,
+					+draftPickIndex,
+					+adp,
+					+ppg,
+				]).catch(() => res.sendStatus(`unable to join teams`));
 				res.sendStatus(200);
 			})
 			.catch(() => res.status(500).send('Unable to add player to server'));

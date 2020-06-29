@@ -1,30 +1,25 @@
-import axios from 'axios';
-
 const initialState = {
-	draftId: null,
-	drafts: [],
 	availPlayers: [],
 	teams: [],
 	draftedPlayers: [],
 };
 
-const GET_DRAFTS = 'GET_DRAFTS';
 const START_DRAFT = 'START_DRAFT';
 const GET_PLAYERS = 'GET_PLAYERS';
+const LOAD_DRAFT = 'LOAD_DRAFT';
 const DRAFT_PLAYER = 'DRAFT_PLAYER';
 const UNDRAFT_PLAYER = 'UNDRAFT_PLAYER';
 
-export function getDrafts(drafts) {
-	return {
-		type: GET_DRAFTS,
-		payload: drafts,
-	};
-}
-
-export function startDraft(draft, teams) {
+export function startDraft(teams) {
 	return {
 		type: START_DRAFT,
-		payload: { draft, teams },
+		payload: teams,
+	};
+}
+export function loadDraft(teams, drafted) {
+	return {
+		type: LOAD_DRAFT,
+		payload: { teams, drafted },
 	};
 }
 
@@ -42,33 +37,31 @@ export function undraftPlayer(drafted, avail) {
 	};
 }
 
-export function getPlayers(drafted, avail, teams, draftId) {
+export function getPlayers(drafted, avail) {
 	return {
 		type: GET_PLAYERS,
-		payload: { avail, drafted, teams, draftId },
+		payload: { avail, drafted },
 	};
 }
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case GET_DRAFTS:
-			return {
-				...state,
-			};
 		case START_DRAFT:
 			return {
-				...state,
-				draftedPlayers: [],
-				teams: action.payload.teams,
-				newDraftId: action.payload.draft,
+				...initialState,
+				teams: action.payload,
 			};
 		case GET_PLAYERS:
 			return {
 				...state,
 				availPlayers: action.payload.avail,
 				draftedPlayers: action.payload.drafted,
+			};
+		case LOAD_DRAFT:
+			return {
+				...initialState,
 				teams: action.payload.teams,
-				draftId: +action.payload.draftId,
+				draftedPlayers: action.payload.drafted,
 			};
 		case DRAFT_PLAYER:
 			return {

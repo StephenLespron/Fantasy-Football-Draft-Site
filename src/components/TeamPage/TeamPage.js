@@ -1,48 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { getPlayers } from '../../ducks/draftReducer';
+import { loadDraft } from '../../ducks/draftReducer';
 import RunningDraftList from '../RunningDraftList';
 import Roster from './Roster';
+import TeamStats from './TeamStats';
+import { connect } from 'react-redux';
+import './TeamPage.css';
 
 function TeamPage(props) {
-	const [roster, setRoster] = useState(new Array(16));
 	const [teams, setTeams] = useState([]);
-	const [currentTeam, setCurrentTeam] = useState([]);
+	const [currentTeam, setCurrent] = useState('');
+	const [roster, setRoster] = useState(new Array(16));
 
 	useEffect(() => {
 		axios
-			.get(`api/draftedPlayers/${+props.match.params.draftId}`)
+			.get(`api/draftedPlayers/${props.match.params.draftId}`)
 			.then((res) => {
-				setTeams(res.data.teams);
-				props.getPlayers(
-					res.data.players,
-					[],
-					res.data.teams,
-					+props.match.params.draftId
-				);
-				setCurrentTeam(res.data.teams[0]);
-			});
+				let { players, teams } = res.data;
+
+				let teamsArr = teams.map((el) => {
+					return (
+						<option key={el.team_id} value={el.team_name}>
+							{el.team_name}
+						</option>
+					);
+				});
+
+				setTeams(teamsArr);
+				setCurrent(teams[0].team_name);
+
+				props.loadDraft(teams, players);
+			})
+			.catch((err) => console.log('err', props.match.params.draftId));
 	}, []);
 
-	useEffect(() => {
-		if (props.draft.draftedPlayers) {
-			if (props.draft.draftedPlayers.length > 0) {
-				setRoster(
-					props.draft.draftedPlayers
-						.filter((el) => el.teamName === currentTeam.teamName)
-						.sort((a, b) => a.ppg > b.ppg)
-				);
-			}
-		}
-	}, [currentTeam]);
 	return (
-		<div>
-			<RunningDraftList />
-			<Roster roster={roster} />
+		<div className='TeamPage'>
+			<select
+				style={{ width: '150px' }}
+				value={currentTeam}
+				onChange={(ev) => setCurrent(ev.target.value)}>
+				{teams}
+			</select>
+			<div style={{ display: 'flex' }}>
+				<RunningDraftList id='rdList' />
+				<Roster currentTeam={currentTeam} />
+			</div>
+			<TeamStats currentTeam={currentTeam} />
 		</div>
 	);
 }
+
 let mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { getPlayers })(TeamPage);
+export default connect(mapStateToProps, { loadDraft })(TeamPage);

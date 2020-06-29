@@ -1,74 +1,115 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
 function Roster(props) {
-	const [displayArr, setDisplay] = useState([]);
+	const [roster, setRoster] = useState(new Array(16));
 
-	function displayRoster() {
-		let arr;
-		let { roster } = props;
+	function buildRoster() {
+		let players = props.draft.draftedPlayers
+			.filter((el) => el.team_name === props.currentTeam)
+			.sort((a, b) => (+a.ppg < +b.ppg ? -1 : 1));
 
-		let qb = roster
-			.filter((el) => el.position === 'QB')
-			.sort((a, b) => a.ppg > b.ppg);
+		let sorted = {
+			QB: [{ ppg: 0 }],
+			RB: [{ ppg: 0 }, { ppg: 0 }],
+			WR: [{ ppg: 0 }, { ppg: 0 }],
+			TE: [{ ppg: 0 }],
+			FLEX: [{ ppg: 0 }],
+			DST: [{ ppg: 0 }],
+			K: [{ ppg: 0 }],
+			BENCH: [
+				{ ppg: 0 },
+				{ ppg: 0 },
+				{ ppg: 0 },
+				{ ppg: 0 },
+				{ ppg: 0 },
+				{ ppg: 0 },
+				{ ppg: 0 },
+			],
+		};
+		let { QB, RB, WR, TE, FLEX, DST, K, BENCH } = sorted;
 
-		let rb = roster
-			.filter((el) => el.position === 'RB')
-			.sort((a, b) => a.ppg > b.ppg);
-		let wr = roster
-			.filter((el) => el.position === 'WR')
-			.sort((a, b) => a.ppg > b.ppg);
-		let te = roster
-			.filter((el) => el.position === 'TE')
-			.sort((a, b) => a.ppg > b.ppg);
-		let def = roster
-			.filter((el) => el.position === 'D/ST')
-			.sort((a, b) => a.ppg > b.ppg);
-		let k = roster
-			.filter((el) => el.position === 'K')
-			.sort((a, b) => a.ppg > b.ppg);
-
-		let flex = [...rb.slice(2), ...wr.slice(2), ...te.slice(1)].sort(
-			(a, b) => a.ppg > b.ppg
-		);
-
-		arr = [qb[0], rb[0], rb[1], wr[0], wr[1], te[0], flex[0]];
-		console.log('roster ordered:', arr);
-
-		arr = arr.map((el, ind) => {
-			if (el) {
-				return (
-					<p key={`12${el.playerId}`}>
-						{el.firstName} {el.lastName}
-					</p>
-				);
+		players.map((el) => {
+			if (el.position === 'D/ST') {
+				sorted['DST'].unshift(el);
 			} else {
-				console.log('map2');
-				return <p key={`12${ind}`}>undrafted</p>;
+				sorted[el.position].unshift(el);
 			}
 		});
 
-		setDisplay(arr);
+		let flex = [...RB.slice(2), ...WR.slice(2), ...TE.slice(1)].sort((a, b) =>
+			+a.ppg < +b.ppg ? 1 : -1
+		);
+
+		sorted.FLEX.unshift(...flex);
+
+		sorted.BENCH.unshift(
+			...[
+				...flex.slice(1),
+				...QB.slice(1),
+				...DST.slice(1),
+				...K.slice(1),
+			].sort((a, b) => (+a.ppg < +b.ppg ? 1 : -1))
+		);
+
+		let arr = [
+			QB[0],
+			RB[0],
+			RB[1],
+			WR[0],
+			WR[1],
+			TE[0],
+			FLEX[0],
+			DST[0],
+			K[0],
+			...BENCH,
+		];
+
+		arr = arr.slice(0, 16).map((el, ind) => {
+			if (el.first_name) {
+				return (
+					<p
+						key={
+							el.first_name + el.last_name
+						}>{`${el.first_name} ${el.last_name} (ppg: ${el.ppg})`}</p>
+				);
+			} else {
+				return <p key={ind}>---------------</p>;
+			}
+		});
+
+		setRoster(arr);
 	}
+
 	useEffect(() => {
-		displayRoster();
-	}, [props.roster]);
+		buildRoster();
+	}, [props.draft.draftedPlayers, props.currentTeam]);
 
 	return (
-		<div>
+		<div className='Roster'>
 			<div>
-				<p>QB: </p>
-				<p>RB: </p>
-				<p>RB: </p>
-				<p>WR: </p>
-				<p>WR: </p>
-				<p>TE: </p>
-				<p>FLEX: </p>
-				<p>D/ST: </p>
-				<p>K: </p>
+				<p>QB</p>
+				<p>RB</p>
+				<p>RB</p>
+				<p>WR</p>
+				<p>WR</p>
+				<p>TE</p>
+				<p>FLEX</p>
+				<p>D/ST</p>
+				<p>K</p>
+				<p>BENCH</p>
+				<p>BENCH</p>
+				<p>BENCH</p>
+				<p>BENCH</p>
+				<p>BENCH</p>
+				<p>BENCH</p>
+				<p>BENCH</p>
 			</div>
-			<div>{displayArr}</div>
+			<div>{roster}</div>
 		</div>
 	);
 }
 
-export default Roster;
+let mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps)(Roster);

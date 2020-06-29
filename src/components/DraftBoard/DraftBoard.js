@@ -8,6 +8,7 @@ import './DraftBoard.css';
 function DraftBoard(props) {
 	const [loading, setLoading] = useState(false);
 	const alert = new uIfx(cheer, { volume: 1 });
+	const [newPick, setNewPick] = useState();
 
 	const [players, setPlayers] = useState([]);
 	const [teams, setTeams] = useState(new Array(12));
@@ -26,13 +27,14 @@ function DraftBoard(props) {
 				);
 				if (length !== res.data.players.length) {
 					length = res.data.players.length;
-					console.log('loading: true; recheck');
-					setLoading(true);
-					alert.play();
+
+					// let sort = res.data.players.slice().reduce((p, c) => {
+					// 	return Date.parse(p.timestamp) > Date.parse(c.timestamp) ? p : c;
+					// }, 0);
+					// console.log(sort[0], sort[sort.length - 1], Date.now());
+					setNewPick(res.data.player[res.data.players.length - 1]);
+
 					setPlayers(res.data.players);
-					setTimeout(() => {
-						setLoading(false);
-					}, 10000);
 				}
 			});
 		setTimeout(() => {
@@ -53,6 +55,14 @@ function DraftBoard(props) {
 	useEffect(() => {
 		if (players) {
 			createDB();
+			if (newPick) {
+				console.log(newPick);
+				setLoading(true);
+				alert.play();
+				setTimeout(() => {
+					setLoading(false);
+				}, 10000);
+			}
 		}
 	}, [players]);
 
@@ -112,12 +122,8 @@ function DraftBoard(props) {
 				<span
 					className='new-pick-alert pop-up-ani'
 					style={!loading ? { display: 'none' } : {}}>
-					{`${players[players.length - 1].team_name}`} Selects:
-					<p className='new-pick-alert2'>{`\n${
-						players[players.length - 1].first_name
-					} ${players[players.length - 1].last_name}\n${
-						players[players.length - 1].team
-					}, ${players[players.length - 1].position}`}</p>
+					{`${newPick.team_name}`} Selects:
+					<p className='new-pick-alert2'>{`\n${newPick.first_name} ${newPick.last_name}\n${newPick.team}, ${newPick.position}`}</p>
 				</span>
 			) : (
 				''

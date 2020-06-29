@@ -1,5 +1,7 @@
 .App {
 	text-align: center;
+	height: 100vh;
+	width: calc(100vw - (100vw- 100%));
 }
 
 .Header,

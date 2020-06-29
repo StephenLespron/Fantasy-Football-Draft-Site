@@ -26,39 +26,40 @@ function Manager(props) {
 	let draftPick = round % 2 === 1 ? pick : 13 - pick;
 
 	useEffect(() => {
-		if (props.draft.availPlayers.length === 0) {
-			axios
-				.post(`api/players/${props.match.params.draftId}`)
-				.then((res) => {
-					const { drafted, avail, teams } = res.data;
-					props.getPlayers(drafted, avail, teams, props.match.params.draftId);
-					setAvailPlayers(
-						res.data.avail.map((elem) => {
-							return (
-								<tr
-									key={elem.playerId}
-									className='playerBox'
-									onDoubleClick={(ev) => {
-										setPlayer(elem);
-									}}>
-									<td>{elem.adp}</td>
-									<td>{`${elem.firstName} ${elem.lastName}`}</td>
-									<td>{elem.team}</td>
-									<td>{elem.position}</td>
-								</tr>
-							);
-						})
-					);
-				})
-				.catch((err) => alert(`failed`));
-		} else {
-			filterPlayers('');
+		if (props.draft.availPlayers) {
+			if (props.draft.availPlayers.length === 0) {
+				axios
+					.post(`api/players/${props.match.params.draftId}`)
+					.then((res) => {
+						const { drafted, avail } = res.data;
+						props.getPlayers(drafted, avail);
+						setAvailPlayers(
+							res.data.avail.map((elem) => {
+								return (
+									<tr
+										key={elem.playerId}
+										className='playerBox'
+										onDoubleClick={(ev) => {
+											setPlayer(elem);
+										}}>
+										<td>{elem.adp}</td>
+										<td>{`${elem.firstName} ${elem.lastName}`}</td>
+										<td>{elem.team}</td>
+										<td>{elem.position}</td>
+									</tr>
+								);
+							})
+						);
+					})
+					.catch((err) => alert(`failed`));
+			} else {
+				filterPlayers('');
+			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.draft.availPlayers]);
 
 	let filterPlayers = (sort) => {
-		console.log('filter:', props.draft.availPlayers);
 		let sortedPlayers = props.draft.availPlayers.sort((a, b) =>
 			a.adp > b.adp ? 1 : -1
 		);
@@ -108,10 +109,12 @@ function Manager(props) {
 		);
 
 		let { team_name, team_id } = teams[
-			teams.findIndex((elem) => elem.draft_order === draftPick)
+			teams.findIndex((elem) => {
+				return elem.draft_order === draftPick;
+			})
 		];
 
-		newDrafted.fTeam = team_name;
+		newDrafted.teamId = team_id;
 
 		newDrafted.draftPickIndex = (round - 1) * 12 + pick;
 
@@ -123,31 +126,35 @@ function Manager(props) {
 			position: 'pos',
 		});
 
-		setRound(pick === 12 ? round + 1 : round);
-		setPick(pick === 12 ? 1 : pick + 1);
 		filterPlayers('');
 
-		props.draftPlayer(newDrafted, newAvail);
-
 		let {
-			playerId,
-			firstName,
-			lastName,
+			playerId: player_id,
+			firstName: first_name,
+			lastName: last_name,
 			team,
 			position,
-			draftPickIndex,
+			draftPickIndex: draft_pick_index,
+			adp,
+			ppg,
 		} = newDrafted;
+		props.draftPlayer(
+			{
+				draft_pick_index,
+				first_name,
+				last_name,
+				player_id,
+				position,
+				team,
+				team_name,
+				adp,
+				ppg,
+			},
+			newAvail
+		);
 
 		axios
-			.post('api/addPlayer', {
-				playerId,
-				firstName,
-				lastName,
-				team,
-				position,
-				teamId: team_id,
-				draftPickIndex,
-			})
+			.post('api/addPlayer', { ...newDrafted })
 			.then(() => 'success')
 			.catch((err) => err.response.data);
 	};
@@ -189,31 +196,58 @@ function Manager(props) {
 				default:
 					console.log(`err`);
 			}
+
 			arr.push(
 				props.draft.teams[
-					props.draft.teams.findIndex(
-						(elem) => elem.draft_order === trackDPLoop
-					)
+					props.draft.teams.findIndex((elem) => {
+						return elem.draft_order === trackDPLoop;
+					})
 				]
 			);
 		}
 
-		setOnDeck(
-			arr.map((elem, ind) => {
-				return (
-					<div key={pick + round + ind}>
-						<p>{ind > 0 ? `On Deck #${ind}` : `On The Clock`}</p>
-						<p>Pick: {(trackRd - 1) * 12 + trackDP + ind}</p>
-						<p>{elem.team_name}</p>
-					</div>
-				);
-			})
-		);
+		if (arr[0]) {
+			setOnDeck(
+				arr.map((elem, ind) => {
+					return (
+						<div key={pick + round + ind}>
+							<p>{ind > 0 ? `On Deck #${ind}` : `On The Clock`}</p>
+							<p>Pick: {(trackRd - 1) * 12 + trackDP + ind}</p>
+							<p>{elem.team_name}</p>
+						</div>
+					);
+				})
+			);
+		}
 	};
+
 	useEffect(() => {
-		if (availPlayers.length > 0) {
-			if (pick >= 1 && pick <= 12) {
-				onDeck();
+		let { draftedPlayers } = props.draft;
+
+		let nextPick =
+			draftedPlayers
+				.sort((a, b) => {
+					return a.draft_pick_index > b.draft_pick_index ? 1 : -1;
+				})
+				.findIndex((el, ind) => el.draft_pick_index !== ind + 1) + 1;
+
+		if (!nextPick) {
+			nextPick = draftedPlayers.length + 1;
+		}
+
+		let nextRound = Math.ceil(nextPick / 12);
+		// let pk = (nextRound - 1) * 12
+
+		setPick(nextPick - (nextRound - 1) * 12);
+		setRound(nextRound);
+	}, [props.draft.draftedPlayers]);
+
+	useEffect(() => {
+		if (pick) {
+			if (availPlayers.length > 0) {
+				if (pick >= 1 && pick <= 12) {
+					onDeck();
+				}
 			}
 		}
 	}, [pick]);
@@ -221,12 +255,11 @@ function Manager(props) {
 	return (
 		<div className='Manager'>
 			<p>
-				Go to localhost:3000/#/draftBoard/draft/{`${props.draft.draftId}`} to
-				view the draftboard.
+				Go to
+				{`localhost:3000/#/draft/${props.match.params.draftId}/board`} to view
+				the draftboard.
 			</p>
-			<Link
-				to={`/draftBoard/draft/${props.match.params.draftId}`}
-				target='_blank'>
+			<Link to={`/draft/${props.match.params.draftId}/board`} target='_blank'>
 				<p> or Click here!</p>
 			</Link>
 			<div>
