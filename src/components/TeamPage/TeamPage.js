@@ -9,7 +9,8 @@ import './TeamPage.css';
 
 function TeamPage(props) {
 	const [teams, setTeams] = useState([]);
-	const [currentTeam, setCurrent] = useState({ team_id: 1, team_name: '' });
+	const [currentTeam, setCurrent] = useState('');
+	const [roster, setRoster] = useState(new Array(16));
 
 	useEffect(() => {
 		axios
@@ -32,6 +33,7 @@ function TeamPage(props) {
 			})
 			.catch((err) => console.log('err', props.match.params.draftId));
 	}, []);
+
 	return (
 		<div className='TeamPage'>
 			<select
@@ -44,6 +46,7 @@ function TeamPage(props) {
 				<RunningDraftList id='rdList' />
 				<Roster currentTeam={currentTeam} />
 			</div>
+			<TeamStats currentTeam={currentTeam} />
 		</div>
 	);
 }

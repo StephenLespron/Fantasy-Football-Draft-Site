@@ -31,10 +31,8 @@ function Roster(props) {
 
 		players.map((el) => {
 			if (el.position === 'D/ST') {
-				console.log(el.position, 'dst');
 				sorted['DST'].unshift(el);
 			} else {
-				console.log(el.position, 'other');
 				sorted[el.position].unshift(el);
 			}
 		});
@@ -54,7 +52,6 @@ function Roster(props) {
 			].sort((a, b) => (+a.ppg < +b.ppg ? 1 : -1))
 		);
 
-		console.log(sorted.BENCH);
 		let arr = [
 			QB[0],
 			RB[0],
