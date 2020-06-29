@@ -31,7 +31,6 @@ function Manager(props) {
 				axios
 					.post(`api/players/${props.match.params.draftId}`)
 					.then((res) => {
-						console.log('initial reload');
 						const { drafted, avail } = res.data;
 						props.getPlayers(drafted, avail);
 						setAvailPlayers(
@@ -110,7 +109,9 @@ function Manager(props) {
 		);
 
 		let { team_name, team_id } = teams[
-			teams.findIndex((elem) => elem.draft_order === draftPick)
+			teams.findIndex((elem) => {
+				return elem.draft_order === draftPick;
+			})
 		];
 
 		newDrafted.teamId = team_id;
@@ -125,8 +126,6 @@ function Manager(props) {
 			position: 'pos',
 		});
 
-		// setRound(pick === 12 ? round + 1 : round);
-		// setPick(pick === 12 ? 1 : pick + 1);
 		filterPlayers('');
 
 		let {
@@ -154,7 +153,6 @@ function Manager(props) {
 			newAvail
 		);
 
-		console.log({ ...newDrafted });
 		axios
 			.post('api/addPlayer', { ...newDrafted })
 			.then(() => 'success')
@@ -198,26 +196,29 @@ function Manager(props) {
 				default:
 					console.log(`err`);
 			}
+
 			arr.push(
 				props.draft.teams[
-					props.draft.teams.findIndex(
-						(elem) => elem.draft_order === trackDPLoop
-					)
+					props.draft.teams.findIndex((elem) => {
+						return elem.draft_order === trackDPLoop;
+					})
 				]
 			);
 		}
 
-		setOnDeck(
-			arr.map((elem, ind) => {
-				return (
-					<div key={pick + round + ind}>
-						<p>{ind > 0 ? `On Deck #${ind}` : `On The Clock`}</p>
-						<p>Pick: {(trackRd - 1) * 12 + trackDP + ind}</p>
-						<p>{elem.team_name}</p>
-					</div>
-				);
-			})
-		);
+		if (arr[0]) {
+			setOnDeck(
+				arr.map((elem, ind) => {
+					return (
+						<div key={pick + round + ind}>
+							<p>{ind > 0 ? `On Deck #${ind}` : `On The Clock`}</p>
+							<p>Pick: {(trackRd - 1) * 12 + trackDP + ind}</p>
+							<p>{elem.team_name}</p>
+						</div>
+					);
+				})
+			);
+		}
 	};
 
 	useEffect(() => {
@@ -235,17 +236,10 @@ function Manager(props) {
 		}
 
 		let nextRound = Math.ceil(nextPick / 12);
+		// let pk = (nextRound - 1) * 12
 
-		setPick(nextPick);
+		setPick(nextPick - (nextRound - 1) * 12);
 		setRound(nextRound);
-
-		console.log(
-			draftedPlayers.sort((a, b) => {
-				return a.draft_pick_index > b.draft_pick_index ? 1 : -1;
-			})
-		);
-
-		console.log(nextRound, nextPick);
 	}, [props.draft.draftedPlayers]);
 
 	useEffect(() => {

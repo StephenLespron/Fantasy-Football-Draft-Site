@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 function Roster(props) {
 	const [roster, setRoster] = useState(new Array(16));
 
-	useEffect(() => {
+	function buildRoster() {
 		let players = props.draft.draftedPlayers
 			.filter((el) => el.team_name === props.currentTeam)
-			.sort((a, b) => +a.ppg < +b.ppg);
+			.sort((a, b) => (+a.ppg < +b.ppg ? -1 : 1));
 
 		let sorted = {
 			QB: [{ ppg: 0 }],
@@ -30,20 +30,31 @@ function Roster(props) {
 		let { QB, RB, WR, TE, FLEX, DST, K, BENCH } = sorted;
 
 		players.map((el) => {
-			sorted[el.position].unshift(el);
+			if (el.position === 'D/ST') {
+				console.log(el.position, 'dst');
+				sorted['DST'].unshift(el);
+			} else {
+				console.log(el.position, 'other');
+				sorted[el.position].unshift(el);
+			}
 		});
 
-		let flex = [
-			...QB.slice(1),
-			...RB.slice(2),
-			...WR.slice(2),
-			...TE.slice(1),
-		].sort((a, b) => +a.ppg < +b.ppg);
+		let flex = [...RB.slice(2), ...WR.slice(2), ...TE.slice(1)].sort((a, b) =>
+			+a.ppg < +b.ppg ? 1 : -1
+		);
 
 		sorted.FLEX.unshift(...flex);
 
-		sorted.BENCH.unshift(...[...flex.slice(1), ...DST, ...K]);
+		sorted.BENCH.unshift(
+			...[
+				...flex.slice(1),
+				...QB.slice(1),
+				...DST.slice(1),
+				...K.slice(1),
+			].sort((a, b) => (+a.ppg < +b.ppg ? 1 : -1))
+		);
 
+		console.log(sorted.BENCH);
 		let arr = [
 			QB[0],
 			RB[0],
@@ -71,6 +82,10 @@ function Roster(props) {
 		});
 
 		setRoster(arr);
+	}
+
+	useEffect(() => {
+		buildRoster();
 	}, [props.draft.draftedPlayers, props.currentTeam]);
 
 	return (
