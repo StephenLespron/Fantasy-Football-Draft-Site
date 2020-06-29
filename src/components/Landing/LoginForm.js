@@ -2,7 +2,7 @@ import React from 'react';
 
 function LoginForm(props) {
 	return (
-		<div>
+		<div className='loginBox2'>
 			<h4>Login</h4>
 			<form onSubmit={(ev) => props.login(ev)}>
 				<div>
@@ -17,7 +17,7 @@ function LoginForm(props) {
 					/>
 				</div>
 				<div>
-					<span>Password: </span>
+					<span> Password: </span>
 					<input
 						className='input'
 						type='password'
@@ -27,11 +27,13 @@ function LoginForm(props) {
 						onChange={(ev) => props.setPass(ev.target.value)}
 					/>
 				</div>
-				<div id='authBtnBox'>
+				<div
+					id='authBtnBox'
+					style={{ display: 'flex', justifyContent: 'flex-end' }}>
 					<input className='authBtn' type='submit' value='Login' />
 				</div>
 			</form>
-			<span>
+			<span id='needAcctBox'>
 				Need an account?
 				<input
 					readOnly

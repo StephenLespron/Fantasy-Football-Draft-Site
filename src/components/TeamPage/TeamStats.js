@@ -28,7 +28,7 @@ function TeamStats(props) {
 			let currentTeam = [];
 			let index = 0;
 			let positions = ['QB', 'RB', 'RB', 'WR', 'WR', 'TE', 'D/ST', 'K', 'FLEX'];
-			for (let i = 0; i < 9; i++) {
+			for (let i = 0; i < 8; i++) {
 				let arr = teamsArr[j].players;
 				let pos = positions[i];
 				if (pos === 'FLEX') {
@@ -58,13 +58,12 @@ function TeamStats(props) {
 			(el) => el.team_name === props.currentTeam
 		);
 
-		console.log(currentTeamIndex);
-
 		let [currentTeamData] = teamsArr.splice(currentTeamIndex, 1);
 
 		currentTeamData.players = currentTeamData.players.map((el) => el.ppg);
 		console.log(currentTeamData);
 
+		console.log(teamsArr);
 		let otherTeamsData = teamsArr[0].players.map((el, ind) => {
 			let denom = 0;
 
@@ -88,18 +87,21 @@ function TeamStats(props) {
 			);
 		});
 
-		let labels = ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'D/ST', 'K', 'FLEX'];
+		let labels = ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'D/ST', 'K'];
 		let datasets = [
 			{
-				label: `${currentTeamData.team_name}`,
-				backgroundColor: 'rgb(89, 191, 63)',
-				borderColor: 'rgba(0,0,0,1)',
+				label: `${
+					currentTeamData.team_name.charAt(0).toUpperCase() +
+					currentTeamData.team_name.slice(1)
+				}`,
+				backgroundColor: 'rgb(85, 4, 4)',
+				borderColor: 'rgb(0,0,0,1)',
 				borderWidth: 2,
 				data: currentTeamData.players,
 			},
 			{
 				label: `League Average`,
-				backgroundColor: 'rgb(178, 15, 15)',
+				backgroundColor: 'rgb(255,215,0)',
 				borderColor: 'rgba(0,0,0,1)',
 				borderWidth: 2,
 				data: otherTeamsData,
@@ -119,6 +121,7 @@ function TeamStats(props) {
 		<div className='TeamStats'>
 			<Bar
 				data={data}
+				height={1000}
 				width={100}
 				options={{
 					title: {

@@ -2,7 +2,7 @@ import React from 'react';
 
 function RegisterForm(props) {
 	return (
-		<div>
+		<div className='loginBox2 '>
 			<h4>Register</h4>
 			<form onSubmit={(ev) => props.register(ev)}>
 				<div>
@@ -38,11 +38,13 @@ function RegisterForm(props) {
 						onChange={(ev) => props.setPass(ev.target.value)}
 					/>
 				</div>
-				<div id='authBtnBox'>
+				<div
+					id='authBtnBox'
+					style={{ display: 'flex', justifyContent: 'flex-end' }}>
 					<input className='authBtn' type='submit' value='Register' />
 				</div>
 			</form>
-			<span>
+			<span id='haveAcctBox'>
 				Already have an account?{' '}
 				<input
 					readOnly

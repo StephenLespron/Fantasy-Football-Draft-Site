@@ -61,6 +61,8 @@ module.exports = {
 			ppg,
 		} = req.body;
 
+		let date = Date.now();
+
 		await db
 			.add_player([+playerId, firstName, lastName, team, position])
 			.then(() => {
@@ -70,6 +72,7 @@ module.exports = {
 					+draftPickIndex,
 					+adp,
 					+ppg,
+					+date,
 				]).catch(() => res.sendStatus(`unable to join teams`));
 				res.sendStatus(200);
 			})

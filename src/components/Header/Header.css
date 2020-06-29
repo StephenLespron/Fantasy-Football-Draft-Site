@@ -16,6 +16,21 @@
 	color: white;
 }
 
+.Header h3 {
+	margin: 0 10px;
+	text-transform: capitalize;
+}
+
+.Header input {
+	margin-top: 3px;
+	border: 1px dashed white;
+	background-color: transparent;
+	border-radius: 15px;
+	font-size: 14px;
+	padding: 1px 5px 2px;
+	text-align: center;
+}
+
 .navMenu {
 	position: fixed;
 	top: -125px;
@@ -23,7 +38,6 @@
 	background-color: rgb(83, 0, 0);
 	height: 100px;
 	width: 125px;
-	transition: all 1s ease-in-out;
 	z-index: 1;
 	border-radius: 5px;
 }
@@ -44,4 +58,41 @@
 
 .navMenuOpen {
 	top: 70px;
+	transition: all 1s ease-in-out;
+}
+
+#hamburger {
+	margin-right: 25px;
+}
+
+@media (min-width: 800px) {
+	#hamburger {
+		display: none;
+	}
+
+	.navMenu {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		z-index: 3;
+		height: 75px;
+		width: 400px;
+		margin-right: 25px;
+	}
+	.navMenu nav {
+		flex-direction: row;
+		height: 100%;
+		width: 100%;
+		align-items: center;
+		padding: 0;
+	}
+
+	.navMenu li {
+		border: 1px solid white;
+		border-radius: 15px;
+		padding: 5px;
+		width: 120px;
+		margin: 0 5px;
+		font-size: 18px;
+	}
 }

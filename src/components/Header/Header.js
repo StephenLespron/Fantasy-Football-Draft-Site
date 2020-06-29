@@ -33,19 +33,26 @@ function Header(props) {
 					<img
 						alt='logo'
 						src={logo}
-						style={{ height: '70px', transform: 'scaleX(-1)' }}
+						style={{
+							height: '70px',
+							transform: 'scaleX(-1)',
+							marginLeft: '25px',
+						}}
 					/>
 					<h3>Welcome, {props.user.username}</h3>
 					<input type='button' value='Logout' onClick={() => logout()} />
 				</div>
 				<img
+					id='hamburger'
 					alt='menu button'
 					src={menu}
 					style={{ height: '30px' }}
 					onClick={() => toggleClicked()}
 				/>
 			</div>
-			<div className={!clickedMenu ? 'navMenu' : 'navMenuOpen navMenu'}>
+			<div
+				className={!clickedMenu ? 'navMenu' : 'navMenuOpen navMenu'}
+				style={!props.user.isLoggedIn ? { display: 'none' } : {}}>
 				<nav>
 					<Link to='/new-draft'>
 						<li>New Draft</li>

@@ -40,6 +40,6 @@ player_id integer references players(player_id),
 draft_pick_index integer,
 adp integer,
 ppg numeric(4,2),
-timestamp timestamp default current_time
+timestamp bigint
 );
 

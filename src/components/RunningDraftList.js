@@ -77,7 +77,7 @@ function RunningDraftList(props) {
 	}, [props.draft.draftedPlayers]);
 
 	return (
-		<div>
+		<div id='rdList'>
 			<div className='PlayersBox'>
 				<table className='PlayersTable'>
 					<thead>

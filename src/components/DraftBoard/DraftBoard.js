@@ -28,11 +28,13 @@ function DraftBoard(props) {
 				if (length !== res.data.players.length) {
 					length = res.data.players.length;
 
-					// let sort = res.data.players.slice().reduce((p, c) => {
-					// 	return Date.parse(p.timestamp) > Date.parse(c.timestamp) ? p : c;
-					// }, 0);
-					// console.log(sort[0], sort[sort.length - 1], Date.now());
-					setNewPick(res.data.players[res.data.players.length - 1]);
+					let sort = res.data.players.slice().sort((a, b) => {
+						console.log(a.timestamp, b.timestamp);
+
+						return +a.timestamp < +b.timestamp ? 1 : -1;
+					}, 0);
+					console.log(sort[0], sort[sort.length - 1], Date.now());
+					setNewPick(sort[0]);
 
 					setPlayers(res.data.players);
 				}
@@ -49,7 +51,7 @@ function DraftBoard(props) {
 				setTeams(res.data.teams);
 				getNewPlayers(res.data.players.length);
 			})
-			.catch((err) => alert(err.response.data));
+			.catch((err) => console.log(err.response.data));
 	}, []);
 
 	useEffect(() => {

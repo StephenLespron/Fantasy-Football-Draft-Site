@@ -35,26 +35,77 @@
 	border: 0 none;
 	box-shadow: 0 2px 5px 2px rgb(0, 0, 0);
 	height: 300px;
-	width: 25%;
+	width: 35%;
 	min-width: 400px;
 	position: fixed;
-	top: 30%;
+	top: 35%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
-.authBtn {
-	width: 50px;
+.loginBox h4 {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	font-size: 50px;
 }
-.loginBox input {
-	width: 150px;
+
+.loginBox form {
+	height: 100;
+	width: 100%;
+	margin-top: 25px;
+}
+
+.loginBox2 {
+	height: 90%;
+	width: 90%;
+	padding-top: 60px;
+}
+
+.register {
+	margin: 120px;
+}
+
+.loginBox form div {
+	display: flex;
+	/* flex-direction: column; */
+	justify-content: space-between;
+	width: 100%;
+	margin: 10px 0;
+}
+
+.loginBox span {
+	font-size: 35px;
+}
+
+.authBtn {
+	max-width: 100px;
+	height: 35px;
+	justify-self: flex-end;
+}
+.input {
+	width: 60%;
+}
+
+#needAcctBox,
+#haveAcctBox {
+	position: absolute;
+	bottom: 5px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
 }
 
 #clickToReg {
+	margin: 0 0px 5px 20px;
 	color: rgb(173, 200, 230);
 	border: none;
 	background: none;
 	outline: none;
+	width: auto;
 }
 
 #clickToReg:hover {
@@ -69,11 +120,143 @@
 }
 
 .TwitterContainer {
+	width: 100%;
 	position: fixed;
 	bottom: 15px;
 	display: flex;
-	max-height: 200px;
+	justify-content: space-evenly;
 }
 
-.TwitterEmbed {
+.twitterEmbed {
+	margin: 0 10px;
+	max-height: 400px;
+	width: 300px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	overflow: -moz-scrollbars-none;
+	-ms-overflow-style: none;
+	border-radius: 15px;
+	background-color: rgb(41, 47, 51);
+	border: 0 none;
+	box-shadow: 0 2px 5px 0px rgb(0, 0, 0);
+}
+
+.twitterEmbed::-webkit-scrollbar {
+	width: 0 !important;
+	display: none;
+}
+
+@media (max-width: 1600px) {
+	.twit1 {
+		display: none;
+	}
+
+	#haveAcctBox {
+		font-size: 24px;
+	}
+
+	#clickToReg {
+		margin-bottom: 3px;
+	}
+}
+@media (max-width: 1300px) {
+	.Landing {
+		background-position: center top -75px;
+	}
+	.twit5 {
+		display: none;
+	}
+
+	#needAcctBox {
+		font-size: 28px;
+	}
+	#haveAcctBox {
+		font-size: 18px;
+	}
+	#clickToReg {
+		margin-bottom: 0px;
+	}
+
+	.loginBox2 span {
+		font-size: 28px;
+	}
+}
+
+@media (max-width: 1000px) {
+	.Landing {
+		background-position: center top -25px;
+	}
+	.twit4 {
+		display: none;
+	}
+
+	.Landing h1 {
+		font-size: 45px;
+		padding-top: 15px;
+		height: 60px;
+	}
+
+	#needAcctBox {
+		font-size: 28px;
+	}
+	#haveAcctBox {
+		font-size: 18px;
+	}
+	#clickToReg {
+		margin-bottom: 0px;
+	}
+
+	.loginBox2 span {
+		font-size: 28px;
+	}
+}
+
+@media (max-width: 700px) {
+	.Landing {
+		padding-top: 10px;
+		background-image: none;
+		background-size: cover;
+		height: calc(100vh + 20px);
+	}
+
+	.twit2,
+	.twit3 {
+		display: none;
+	}
+
+	.loginBox {
+		width: 90%;
+		height: 40vh;
+		min-width: 300px;
+		top: calc(40% + 40px);
+		border: none;
+	}
+
+	.Landing h1 {
+		margin: 0px 5% 0;
+		font-size: 22px;
+		padding-top: 30px;
+		height: 40px;
+		border-radius: 15px;
+	}
+
+	#needAcctBox {
+		font-size: 16px;
+		margin-bottom: 30px;
+	}
+	#haveAcctBox {
+		font-size: 16px;
+		margin-bottom: 30px;
+	}
+	#clickToReg {
+		margin: 0 -35px 0px 10px;
+	}
+
+	.loginBox2 span {
+		font-size: 20px;
+	}
+
+	.loginBox2 {
+		margin-top: 20px;
+	}
 }

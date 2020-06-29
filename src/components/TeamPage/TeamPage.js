@@ -36,17 +36,27 @@ function TeamPage(props) {
 
 	return (
 		<div className='TeamPage'>
-			<select
-				style={{ width: '150px' }}
-				value={currentTeam}
-				onChange={(ev) => setCurrent(ev.target.value)}>
-				{teams}
-			</select>
-			<div style={{ display: 'flex' }}>
-				<RunningDraftList id='rdList' />
-				<Roster currentTeam={currentTeam} />
+			<div>
+				<div id='teamList'>
+					<p>Displayed Team:</p>
+
+					<select
+						value={currentTeam}
+						onChange={(ev) => setCurrent(ev.target.value)}>
+						{teams}
+					</select>
+				</div>
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'space-between',
+						width: '70%',
+					}}>
+					<RunningDraftList />
+					<Roster currentTeam={currentTeam} />
+				</div>
+				<TeamStats currentTeam={currentTeam} />
 			</div>
-			<TeamStats currentTeam={currentTeam} />
 		</div>
 	);
 }
