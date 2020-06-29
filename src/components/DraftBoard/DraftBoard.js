@@ -32,7 +32,7 @@ function DraftBoard(props) {
 					// 	return Date.parse(p.timestamp) > Date.parse(c.timestamp) ? p : c;
 					// }, 0);
 					// console.log(sort[0], sort[sort.length - 1], Date.now());
-					setNewPick(res.data.player[res.data.players.length - 1]);
+					setNewPick(res.data.players[res.data.players.length - 1]);
 
 					setPlayers(res.data.players);
 				}

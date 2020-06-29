@@ -119,6 +119,7 @@ function TeamStats(props) {
 		<div className='TeamStats'>
 			<Bar
 				data={data}
+				width={100}
 				options={{
 					title: {
 						display: true,
@@ -127,8 +128,9 @@ function TeamStats(props) {
 					},
 					legend: {
 						display: true,
-						position: 'right',
+						position: 'top',
 					},
+					maintainAspectRatio: false,
 				}}
 			/>
 		</div>

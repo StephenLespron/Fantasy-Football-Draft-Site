@@ -16,10 +16,6 @@ function RunningDraftList(props) {
 
 		let [newAvail] = newDrafted.splice(index, 1);
 
-<<<<<<< HEAD
-		delete newAvail.teamName;
-		delete newAvail.draft_pickIndex;
-=======
 		let {
 			adp,
 			first_name: firstName,
@@ -31,7 +27,6 @@ function RunningDraftList(props) {
 
 		delete newAvail.team_name;
 		delete newAvail.pick;
->>>>>>> my-temp-work
 
 		axios
 			.delete(`api/removePlayer/${id}`)
@@ -49,38 +44,24 @@ function RunningDraftList(props) {
 
 	function displayPlayers() {
 		let arr = props.draft.draftedPlayers.sort((a, b) =>
-<<<<<<< HEAD
-			a.draft_pickIndex < b.draft_pickIndex ? 1 : -1
-=======
 			a.draft_pick_index < b.draft_pick_index ? 1 : -1
->>>>>>> my-temp-work
 		);
 
 		// eslint-disable-next-line array-callback-return
 		arr = arr.map((elem, ind) => {
-<<<<<<< HEAD
-			if (elem.playerId) {
-=======
 			if (elem.player_id) {
->>>>>>> my-temp-work
 				return (
 					<tr
 						key={elem.player_id}
 						className='playerBox'
-<<<<<<< HEAD
-						onDoubleClick={() => undraftPlayer(elem.playerId)}>
-						<td>{`${Math.floor((elem.draft_pickIndex - 1) / 12) + 1}.${
-							((elem.draft_pickIndex - 1) % 12) + 1
-=======
 						style={!props.user.isLoggedIn ? { pointerEvents: 'none' } : {}}
 						onDoubleClick={() => undraftPlayer(elem.player_id)}>
 						<td>{`${Math.floor((elem.draft_pick_index - 1) / 12) + 1}.${
 							((elem.draft_pick_index - 1) % 12) + 1
->>>>>>> my-temp-work
 						}`}</td>
 						<td>{elem.teamName}</td>
 						<td>
-							{`${elem.firstName} ${elem.lastName} (${elem.team}, ${elem.position})`}{' '}
+							{`${elem.first_name} ${elem.last_name} (${elem.team}, ${elem.position})`}{' '}
 						</td>
 					</tr>
 				);

@@ -6,3 +6,10 @@
 .Roster {
 	display: flex;
 }
+
+.TeamStats canvas {
+	max-height: 40vh;
+	max-width: 70vw;
+	height: 40vh;
+	width: 70vw;
+}

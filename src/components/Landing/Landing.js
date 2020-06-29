@@ -4,6 +4,7 @@ import { login, getUser } from '../../ducks/userReducer';
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
 import Register from './RegisterForm';
+import TwitterContainer from './TwitterContainer';
 import './Landing.css';
 
 function Landing(props) {
@@ -68,6 +69,7 @@ function Landing(props) {
 					/>
 				)}
 			</div>
+			<TwitterContainer />
 		</div>
 	);
 }
