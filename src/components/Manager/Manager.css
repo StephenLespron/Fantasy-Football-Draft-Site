@@ -23,16 +23,39 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
-#inputBox {
+#inputBox,
+.onDeck {
+	height: 70px;
+	padding: 5px;
 	display: flex;
-	justify-content: space-evenly;
-	width: 500px;
+	justify-content: space-between;
+	align-items: center;
+	width: calc(100% - 10px);
 	margin-top: 50px;
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+#inputBox table {
+	width: 100%;
+	font-size: 22px;
+}
+
+#submitBtn {
+	height: 40px;
+	width: 60px;
+	border-radius: 10px;
+	outline: none;
+	margin-right: 10px;
 }
 
 .pickInput {
 	width: 30px;
 	text-align: center;
+	border: 1px solid black;
+	outline: none;
+	border-radius: 10px;
 }
 
 .PlayersTable {
@@ -44,8 +67,15 @@ input::-webkit-inner-spin-button {
 	height: 500px;
 	max-height: 500px;
 	width: 500px;
-	overflow-y: scroll;
 	border: 1px solid black;
+	border-radius: 10px;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	background-color: white;
+}
+.PlayersBox::-webkit-scrollbar {
+	display: none;
 }
 
 .PlayersTable thead th {
@@ -68,7 +98,7 @@ input::-webkit-inner-spin-button {
 }
 
 .playerBox:nth-child(2n + 1) {
-	background-color: rgba(255, 0, 0, 0.239);
+	background-color: rgba(83, 0, 0, 0.486);
 }
 
 .playerBox {
@@ -82,4 +112,42 @@ input::-webkit-inner-spin-button {
 }
 .playerBox td {
 	vertical-align: middle;
+}
+
+#linkBoard {
+	position: fixed;
+	top: 100px;
+	left: 100px;
+	font-size: 28px;
+	font-weight: bold;
+	display: flex;
+}
+
+#teamView {
+	position: fixed;
+	top: 150px;
+	left: 100px;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#controllerContainer {
+	justify-content: space-between;
+	width: 60%;
+	position: fixed;
+	top: 55%;
+	transform: translateY(-50%);
+	display: flex;
+}
+
+#filterBox {
+	position: absolute;
+	top: -20px;
+	right: 5px;
+}
+
+.onDeck {
+	justify-content: space-evenly;
+
+	font-weight: bold;
 }

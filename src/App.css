@@ -9,3 +9,10 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+input[type='button']:active,
+input[type='submit']:active {
+	transform: translateY(2px);
+	outline: none;
+	border: none;
+}

@@ -254,103 +254,113 @@ function Manager(props) {
 
 	return (
 		<div className='Manager'>
-			<p>
-				Go to
-				{`localhost:3000/#/draft/${props.match.params.draftId}/board`} to view
-				the draftboard.
-			</p>
-			<Link to={`/draft/${props.match.params.draftId}/board`} target='_blank'>
-				<p> or Click here!</p>
-			</Link>
-			<div>
-				<RunningDraftList />
-				<div className='onDeck'>{onDeckArr}</div>
+			<div id='linkBoard'>
+				<p>
+					Go to
+					{` localhost:3000/#/draft/${props.match.params.draftId}/board`} to
+					view the draftboard,
+				</p>
+				<Link to={`/draft/${props.match.params.draftId}/board`} target='_blank'>
+					<p style={{ marginLeft: '5px' }}> {` or click here!`}</p>
+				</Link>
 			</div>
-			<div className='PlayerContainer'>
+			<p id='teamView'>{`localhost:3000/#/draft/${props.match.params.draftId}/teams for the TeamView`}</p>
+			<div id='controllerContainer'>
 				<div>
-					<select
-						value={criteria}
-						onChange={(ev) => {
-							setCrit(ev.target.value);
-						}}>
-						<option value='name'>Name</option>
-						<option value='team'>Team</option>
-						<option value='position'>Pos.</option>
-					</select>
-					<input
-						type='text'
-						placeholder='search criteria'
-						value={filter}
-						onChange={(ev) => {
-							setFilter(ev.target.value);
-						}}
-					/>
-					<input
-						type='submit'
-						value='search'
-						onClick={(ev) => {
-							filterPlayers(filter);
-						}}
-					/>
-					<input
-						type='button'
-						value='reset'
-						onClick={(ev) => {
-							setCrit('name');
-							setFilter('');
-							filterPlayers('');
-						}}
-					/>
+					<RunningDraftList />
+					<div className='onDeck'>{onDeckArr}</div>
 				</div>
-				<div className='PlayersBox'>
-					<table className='PlayersTable'>
-						<thead>
-							<tr>
-								<th>ADP</th>
-								<th>Name</th>
-								<th>Team</th>
-								<th>Pos.</th>
-							</tr>
-						</thead>
-						<tbody>{availPlayers}</tbody>
-					</table>
-				</div>
-				<div id='inputBox'>
-					<table>
-						<thead>
-							<tr>
-								<th>Round</th>
-								<th>Pick</th>
-								<th>Player</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<input
-										className='pickInput'
-										type='number'
-										min='1'
-										max='16'
-										value={+round}
-										onChange={(ev) => setRound(+ev.target.value)}
-									/>
-								</td>
-								<td>
-									<input
-										className='pickInput'
-										type='number'
-										min={1}
-										max={12}
-										value={+pick}
-										onChange={(ev) => setPick(+ev.target.value)}
-									/>
-								</td>
-								<td>{`${player.firstName} ${player.lastName} (${player.team}, ${player.position})`}</td>
-							</tr>
-						</tbody>
-					</table>
-					<input type='button' value='Submit' onClick={() => draftPlayer()} />
+				<div className='PlayerContainer'>
+					<div id='filterBox'>
+						<select
+							value={criteria}
+							onChange={(ev) => {
+								setCrit(ev.target.value);
+							}}>
+							<option value='name'>Name</option>
+							<option value='team'>Team</option>
+							<option value='position'>Pos.</option>
+						</select>
+						<input
+							type='text'
+							placeholder='search criteria'
+							value={filter}
+							onChange={(ev) => {
+								setFilter(ev.target.value);
+							}}
+						/>
+						<input
+							type='submit'
+							value='search'
+							onClick={(ev) => {
+								filterPlayers(filter);
+							}}
+						/>
+						<input
+							type='button'
+							value='reset'
+							onClick={(ev) => {
+								setCrit('name');
+								setFilter('');
+								filterPlayers('');
+							}}
+						/>
+					</div>
+					<div className='PlayersBox'>
+						<table className='PlayersTable'>
+							<thead>
+								<tr>
+									<th>ADP</th>
+									<th>Name</th>
+									<th>Team</th>
+									<th>Pos.</th>
+								</tr>
+							</thead>
+							<tbody>{availPlayers}</tbody>
+						</table>
+					</div>
+					<div id='inputBox'>
+						<table>
+							<thead>
+								<tr>
+									<th>Round</th>
+									<th>Pick</th>
+									<th>Player</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<input
+											className='pickInput'
+											type='number'
+											min='1'
+											max='16'
+											value={+round}
+											onChange={(ev) => setRound(+ev.target.value)}
+										/>
+									</td>
+									<td>
+										<input
+											className='pickInput'
+											type='number'
+											min={1}
+											max={12}
+											value={+pick}
+											onChange={(ev) => setPick(+ev.target.value)}
+										/>
+									</td>
+									<td>{`${player.firstName} ${player.lastName} (${player.team}, ${player.position})`}</td>
+								</tr>
+							</tbody>
+						</table>
+						<input
+							id='submitBtn'
+							type='button'
+							value='Submit'
+							onClick={() => draftPlayer()}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
