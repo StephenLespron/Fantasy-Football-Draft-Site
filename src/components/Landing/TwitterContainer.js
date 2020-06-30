@@ -17,16 +17,14 @@ function TwitterContainer() {
 					noBorders='true'
 					noFooter='true'></TwitterTimelineEmbed>
 			</div>
-			<div className='twitterEmbed twit2'>
+			<div className='twitterEmbed  twit4'>
 				<TwitterTimelineEmbed
 					sourceType='profile'
-					screenName='FantasyPros'
+					screenName='PFF_Fantasy'
 					options={{
 						tweetLimit: '5',
 						width: 'auto',
-						// height: 20,
 					}}
-					autoHeight='true'
 					theme='dark'
 					noHeader='true'
 					noBorders='true'
@@ -45,19 +43,22 @@ function TwitterContainer() {
 					noBorders='true'
 					noFooter='true'></TwitterTimelineEmbed>
 			</div>
-			<div className='twitterEmbed  twit4'>
+			<div className='twitterEmbed twit2'>
 				<TwitterTimelineEmbed
 					sourceType='profile'
-					screenName='PFF_Fantasy'
+					screenName='FantasyPros'
 					options={{
 						tweetLimit: '5',
 						width: 'auto',
+						// height: 20,
 					}}
+					autoHeight='true'
 					theme='dark'
 					noHeader='true'
 					noBorders='true'
 					noFooter='true'></TwitterTimelineEmbed>
 			</div>
+
 			<div className='twitterEmbed  twit5'>
 				<TwitterTimelineEmbed
 					sourceType='profile'

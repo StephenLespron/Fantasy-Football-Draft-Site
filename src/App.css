@@ -16,3 +16,7 @@ input[type='submit']:active {
 	outline: none;
 	border: none;
 }
+
+li:active {
+	transform: translateY(2px);
+}

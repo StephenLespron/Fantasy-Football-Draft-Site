@@ -14,6 +14,8 @@ const authCtrl = require('./controllers/authController'),
 	addPlayerMiddleWare = require('./middleWares/addPlayerMiddleWare'),
 	draftedPlayersMiddleWare = require('./middleWares/draftedPlayersMiddleWare');
 
+app.use(express.static(`${__dirname}/../build`));
+
 app.use(express.json());
 app.use(
 	session({

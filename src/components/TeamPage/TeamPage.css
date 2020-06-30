@@ -3,7 +3,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: gray;
+	background-color: rgb(63, 63, 63);
 	height: calc(100vh - 25px);
 	width: calc(100vw - (100vw - 100));
 }
@@ -14,7 +14,7 @@
 	height: 50vh;
 	align-items: center;
 	justify-content: center;
-	background-color: white;
+	background-color: rgb(218, 218, 218);
 	border: 1px solid black;
 	border-radius: 15px;
 	color: rgb(85, 4, 4);
@@ -35,6 +35,7 @@
 	max-width: 70vw;
 	height: 40vh;
 	width: 70vw;
+	min-height: 40vh;
 }
 
 .TeamPage #rdList:first-child {
@@ -45,7 +46,8 @@
 }
 
 .TeamPage div.PlayersBox {
-	height: 100%;
+	height: 50vh;
+	min-height: 50vh;
 	width: 100%;
 	border-radius: 15px;
 	overflow-y: scroll;
@@ -62,23 +64,25 @@
 	margin-top: 25px;
 	display: flex;
 	justify-content: center;
-	background-color: white;
+	background-color: rgb(218, 218, 218);
 	width: 70vw;
 	border: 1px solid black;
 	border-radius: 15px;
 }
 
 #teamList {
+	color: white;
 	position: fixed;
 	left: 50%;
 	top: 25px;
 	transform: translateX(-50%);
-	font-size: 1.51vw;
+	font-size: 2.5vh;
 	width: 10vw;
 	height: 15vh;
 }
 
 #teamList select {
+	margin-top: 10px;
 	width: 100%;
 	text-transform: capitalize;
 	font-weight: bold;
@@ -94,30 +98,36 @@
 	}
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1025px) {
 	.TeamStats {
 		display: none;
 	}
 
 	.Roster {
 		position: fixed;
-		top: calc(15vw + 25px);
+		top: calc(10vh + 25px);
 		left: 50%;
 		transform: translateX(-50%);
-		height: 40vh;
+		height: 30vh;
 		width: 90vw;
-		font-size: 1em;
+		font-size: 1.75vh;
+		max-height: 40vh;
+		min-height: 30vh;
 	}
 
 	.TeamPage #rdList {
 		position: fixed;
-		bottom: 25px;
+		top: calc(40vh + 50px);
 		left: 50%;
 		transform: translateX(-50%);
-		height: 40vh;
-		max-height: 40vh;
+		height: 30vh;
+		max-height: 30vh;
 		width: 90vw;
-		font-size: 0.85em !important;
+		font-size: 1.5vh;
+	}
+
+	.TeamPage #rdList th {
+		font-size: 2.5vh;
 	}
 
 	#teamList {
@@ -125,7 +135,7 @@
 		left: 50%;
 		top: 15px;
 		transform: translateX(-50%);
-		font-size: 7vw;
+		font-size: 4vh;
 		width: 90vw;
 	}
 

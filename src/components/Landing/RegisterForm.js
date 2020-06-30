@@ -5,6 +5,11 @@ function RegisterForm(props) {
 		<div className='loginBox2 '>
 			<h4>Register</h4>
 			<form onSubmit={(ev) => props.register(ev)}>
+				<div
+					id='authBtnBox'
+					style={{ display: 'flex', justifyContent: 'flex-end' }}>
+					<input className='authBtn' type='submit' value='Register' />
+				</div>
 				<div>
 					<span>Username: </span>
 					<input
@@ -37,11 +42,6 @@ function RegisterForm(props) {
 						value={props.password}
 						onChange={(ev) => props.setPass(ev.target.value)}
 					/>
-				</div>
-				<div
-					id='authBtnBox'
-					style={{ display: 'flex', justifyContent: 'flex-end' }}>
-					<input className='authBtn' type='submit' value='Register' />
 				</div>
 			</form>
 			<span id='haveAcctBox'>

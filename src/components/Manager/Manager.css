@@ -4,7 +4,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: gray;
+	background-color: rgb(63, 63, 63);
 }
 
 .PlayerContainer {
@@ -12,7 +12,6 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: gray;
 }
 
 input::-webkit-outer-spin-button,
@@ -23,33 +22,33 @@ input::-webkit-inner-spin-button {
 
 #inputBox,
 .onDeck {
-	height: 70px;
+	height: 7vh;
 	padding: 5px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: calc(100% - 10px);
-	margin-top: 50px;
-	background-color: white;
+	margin-top: 5vh;
+	background-color: rgb(218, 218, 218);
 	border: 1px solid black;
 	border-radius: 10px;
 }
 
 #inputBox table {
 	width: 100%;
-	font-size: 22px;
+	font-size: calc(1vh + 12px);
 }
 
 #submitBtn {
-	height: 40px;
+	height: 4vh;
 	width: 60px;
 	border-radius: 10px;
 	outline: none;
-	margin-right: 10px;
+	margin-right: 1vh;
 }
 
 .pickInput {
-	width: 30px;
+	width: 1vw;
 	text-align: center;
 	border: 1px solid black;
 	outline: none;
@@ -62,7 +61,7 @@ input::-webkit-inner-spin-button {
 }
 
 .PlayersBox {
-	height: 500px;
+	height: 50vh;
 	max-height: 500px;
 	width: 500px;
 	border: 1px solid black;
@@ -70,7 +69,7 @@ input::-webkit-inner-spin-button {
 	overflow-y: scroll;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
-	background-color: white;
+	background-color: rgb(218, 218, 218);
 }
 .PlayersBox::-webkit-scrollbar {
 	display: none;
@@ -92,11 +91,11 @@ input::-webkit-inner-spin-button {
 }
 
 .playerBox:nth-child(2n + 2) {
-	background-color: white;
+	background-color: gb(218, 218, 218);
 }
 
 .playerBox:nth-child(2n + 1) {
-	background-color: rgba(83, 0, 0, 0.486);
+	background-color: rgb(158, 97, 97);
 }
 
 .playerBox {
@@ -112,28 +111,31 @@ input::-webkit-inner-spin-button {
 	vertical-align: middle;
 }
 
-#linkBoard {
+#linkBoard,
+#teamView {
 	position: fixed;
 	top: 100px;
 	left: 100px;
 	font-size: 22px;
 	font-weight: bold;
 	display: flex;
+	color: white;
+}
+
+#linkBoard a {
+	color: white;
+	text-decoration: underline;
 }
 
 #teamView {
-	position: fixed;
 	top: 130px;
-	left: 100px;
-	font-size: 22px;
-	font-weight: bold;
 }
 
 #controllerContainer {
 	justify-content: space-between;
-	width: 80%;
+	width: 1080px;
 	position: fixed;
-	top: 60%;
+	top: 60vh;
 	transform: translateY(-50%);
 	display: flex;
 }
@@ -146,6 +148,6 @@ input::-webkit-inner-spin-button {
 
 .onDeck {
 	justify-content: space-evenly;
-
+	font-size: calc(1vh + 7px);
 	font-weight: bold;
 }

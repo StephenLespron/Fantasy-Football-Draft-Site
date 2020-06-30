@@ -23,6 +23,7 @@ function RunningDraftList(props) {
 			player_id: playerId,
 			position,
 			team,
+			ppg,
 		} = newAvail;
 
 		delete newAvail.team_name;
@@ -39,6 +40,7 @@ function RunningDraftList(props) {
 			position,
 			team,
 			adp,
+			ppg,
 		});
 	};
 
@@ -59,7 +61,7 @@ function RunningDraftList(props) {
 						<td>{`${Math.floor((elem.draft_pick_index - 1) / 12) + 1}.${
 							((elem.draft_pick_index - 1) % 12) + 1
 						}`}</td>
-						<td>{elem.teamName}</td>
+						<td>{elem.team_name}</td>
 						<td>
 							{`${elem.first_name} ${elem.last_name} (${elem.team}, ${elem.position})`}{' '}
 						</td>

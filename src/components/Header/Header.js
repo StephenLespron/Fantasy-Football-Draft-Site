@@ -34,7 +34,7 @@ function Header(props) {
 						alt='logo'
 						src={logo}
 						style={{
-							height: '70px',
+							height: '7vh',
 							transform: 'scaleX(-1)',
 							marginLeft: '25px',
 						}}
@@ -46,7 +46,6 @@ function Header(props) {
 					id='hamburger'
 					alt='menu button'
 					src={menu}
-					style={{ height: '30px' }}
 					onClick={() => toggleClicked()}
 				/>
 			</div>

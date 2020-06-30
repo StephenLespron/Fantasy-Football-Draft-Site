@@ -54,7 +54,7 @@ function NewDraft(props) {
 			<p>Keeper Round: </p>
 			<input
 				className='keeperInput'
-				type='text'
+				type='number'
 				value={elem.keeperRound}
 				name='keeperRound'
 				min='1'

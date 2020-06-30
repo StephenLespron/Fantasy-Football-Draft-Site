@@ -4,7 +4,7 @@
 .Header {
 	position: fixed;
 	width: 100%;
-	height: 75px;
+	height: 7.5vh;
 	background-color: rgb(83, 0, 0);
 	color: white;
 	align-items: center;
@@ -19,12 +19,12 @@
 }
 
 .Header h3 {
-	margin: 0 10px;
+	margin: 0 1vh;
 	text-transform: capitalize;
 }
 
 .Header input {
-	margin-top: 3px;
+	margin-top: 0.3vh;
 	border: 1px dashed white;
 	background-color: transparent;
 	border-radius: 15px;
@@ -35,7 +35,7 @@
 
 .navMenu {
 	position: fixed;
-	top: -125px;
+	top: -100px;
 	right: 0px;
 	background-color: rgb(83, 0, 0);
 	height: 100px;
@@ -59,12 +59,13 @@
 }
 
 .navMenuOpen {
-	top: 70px;
+	top: 7.2vh;
 	transition: all 1s ease-in-out;
 }
 
 #hamburger {
 	margin-right: 25px;
+	height: 4vh;
 }
 
 @media (min-width: 800px) {
@@ -73,11 +74,11 @@
 	}
 
 	.navMenu {
-		position: absolute;
+		position: fixed;
 		right: 0px;
 		top: 0px;
 		z-index: 3;
-		height: 75px;
+		height: 7.5vh;
 		width: 400px;
 		margin-right: 25px;
 	}

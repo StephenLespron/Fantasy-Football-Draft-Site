@@ -4,8 +4,8 @@
 
 .DraftBoard table {
 	table-layout: fixed;
-	width: 1920px;
-	height: 1080px;
+	width: calc(100vw - (100vw - 100%));
+	height: 100vh;
 	border: 2px solid black;
 	border-collapse: collapse;
 	text-align: center;
@@ -13,16 +13,19 @@
 }
 
 .DraftBoard table td {
-	max-height: calc(100% / 16);
 	border-top: 1px solid grey;
 	border-right: 0.5px dotted grey;
 	word-wrap: normal;
+	height: calc(5.8vh);
+}
+.DraftBoard table thead th {
+	height: 2.8vh;
 }
 
 .DraftBoard tr {
-	font-size: 18px;
+	max-height: calc((100% - 2.8vh) / 16);
+	font-size: 1.8vh;
 	font-weight: bold;
-	height: calc(63px);
 }
 
 .DraftBoard th,
@@ -46,7 +49,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: white;
-	font-size: calc(25px + 10vh);
+	font-size: calc(10vh);
 	vertical-align: middle;
 	white-space: pre-wrap;
 	overflow: hidden;

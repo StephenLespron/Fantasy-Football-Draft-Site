@@ -5,7 +5,12 @@ function LoginForm(props) {
 		<div className='loginBox2'>
 			<h4>Login</h4>
 			<form onSubmit={(ev) => props.login(ev)}>
-				<div>
+				<div
+					id='authBtnBox'
+					style={{ display: 'flex', justifyContent: 'flex-end' }}>
+					<input className='authBtn' type='submit' value='Login' />
+				</div>
+				<div id='userBox'>
 					<span>Username: </span>
 					<input
 						className='input'
@@ -26,11 +31,6 @@ function LoginForm(props) {
 						value={props.password}
 						onChange={(ev) => props.setPass(ev.target.value)}
 					/>
-				</div>
-				<div
-					id='authBtnBox'
-					style={{ display: 'flex', justifyContent: 'flex-end' }}>
-					<input className='authBtn' type='submit' value='Login' />
 				</div>
 			</form>
 			<span id='needAcctBox'>
