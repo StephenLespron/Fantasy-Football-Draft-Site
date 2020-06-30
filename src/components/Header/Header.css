@@ -9,6 +9,8 @@
 	color: white;
 	align-items: center;
 	z-index: 2;
+	border: 0 none;
+	box-shadow: 0 2px 5px 2px black;
 }
 
 .Header * {

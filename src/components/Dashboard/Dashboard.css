@@ -1,5 +1,49 @@
 .Dashboard {
-	height: calc(100);
+	height: calc(100%);
 	width: calc(100vw - (100vw - 100%));
-	padding-top: 75px;
+	background-color: rgba(128, 128, 128, 0.7);
+}
+
+.Dashboard > div {
+	padding-top: 100px;
+	min-height: calc(100% - 100px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Dashboard > div > p {
+	font-size: 40px;
+	font-weight: bolder;
+	width: 600px;
+}
+
+.draftBox {
+	margin-bottom: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 500px;
+	height: 100px;
+	background-color: white;
+	border-radius: 15px;
+	border: 1px solid black;
+	box-shadow: 0 2px 2px 2px grey;
+}
+
+.draftBox h4:first-child {
+	margin: 0 15px;
+	font-size: 35px;
+	font-weight: bolder;
+}
+#buttonBox {
+	margin: 0 50px;
+	display: flex;
+	flex-direction: column;
+	justify-self: end;
+}
+
+#buttonBox input {
+	margin: 5px 0;
+	width: 85px;
 }

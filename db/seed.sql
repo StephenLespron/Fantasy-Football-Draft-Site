@@ -14,7 +14,7 @@ email varchar(100)
 create table drafts (
 draft_id serial primary key,
 user_id integer references users(user_id),
-date date not null default current_date
+date date not null default current_timestamp
 );
 
 create table teams (

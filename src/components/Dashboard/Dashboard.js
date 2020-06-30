@@ -19,33 +19,46 @@ function Dashboard(props) {
 			.catch((err) => alert(err.response.data));
 	}
 
+	function sendEmail(draftId, draftDate) {
+		const { username, email } = props.user;
+		axios
+			.post('sendEmail', { username, email, draftId, draftDate })
+			.then(() => alert('Email sent successfully!'))
+			.catch((err) => alert(err.response.data));
+	}
+
 	useEffect(() => {
 		axios
 			.get(`api/drafts/${props.user.userId}`)
 			.then((res) => {
 				let arr = res.data.map((el) => {
 					let date = new Date(el.date);
+					let month = date.getMonth() + 1;
+					let day = date.getDate();
+					let year = date.getFullYear();
 					return (
-						<div key={el.draft_id}>
+						<div key={el.draft_id} className='draftBox'>
 							<h4>Draft #{el.draft_id}</h4>
-							<h4>
-								Date:{' '}
-								{`${
-									date.getMonth() + 1
-								}-${date.getDate()}-${date.getFullYear()}`}
-							</h4>
-							<Link to={`/draft/${el.draft_id}/manager`}>
+							<h4>Date: {`${month}-${day}-${year}`}</h4>
+							<div id='buttonBox'>
+								<Link to={`/draft/${el.draft_id}/manager`}>
+									<input
+										type='button'
+										value='Open Draft'
+										onClick={() => getTeams(el.draft_id)}
+									/>
+								</Link>
 								<input
 									type='button'
-									value='Open Draft'
-									onClick={() => getTeams(el.draft_id)}
+									value='Send Email'
+									onClick={() =>
+										sendEmail(el.draft_id, `${month}-${day}-${year}`)
+									}
 								/>
-							</Link>
-							<input type='button' value='Send Email' />
+							</div>
 						</div>
 					);
 				});
-
 				setDrafts(arr);
 			})
 			.catch((err) => 'did not get drafts');
@@ -53,7 +66,16 @@ function Dashboard(props) {
 
 	return (
 		<div className='Dashboard'>
-			<div>{drafts}</div>
+			<div>
+				{drafts.length > 0 ? (
+					drafts
+				) : (
+					<p id='noDrafts'>
+						{`You have not started any drafts! \n Click new draft (top-right
+						corner) to start one now.`}
+					</p>
+				)}
+			</div>
 		</div>
 	);
 }
