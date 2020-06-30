@@ -129,7 +129,7 @@
 
 .twitterEmbed {
 	margin: 0 10px;
-	max-height: 400px;
+	max-height: 300px;
 	width: 300px;
 	overflow-x: hidden;
 	overflow-y: scroll;
