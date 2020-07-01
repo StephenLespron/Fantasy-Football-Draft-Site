@@ -41,7 +41,7 @@ function DraftBoard(props) {
 			});
 		setTimeout(() => {
 			getNewPlayers(length);
-		}, 15000);
+		}, 30000);
 	}
 
 	useEffect(() => {

@@ -12,7 +12,7 @@ function TeamPage(props) {
 	const [currentTeam, setCurrent] = useState('');
 	const [roster, setRoster] = useState(new Array(16));
 
-	useEffect(() => {
+	let getPlayers = () => {
 		axios
 			.get(`api/draftedPlayers/${props.match.params.draftId}`)
 			.then((res) => {
@@ -30,8 +30,13 @@ function TeamPage(props) {
 				setCurrent(teams[0].team_name);
 
 				props.loadDraft(teams, players);
+				setTimeout(() => getPlayers(), 120000);
 			})
 			.catch((err) => console.log('err', props.match.params.draftId));
+	};
+
+	useEffect(() => {
+		getPlayers();
 	}, []);
 
 	return (
