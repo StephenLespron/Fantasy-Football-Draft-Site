@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { login, getUser } from '../../ducks/userReducer';
 import { connect } from 'react-redux';
@@ -12,6 +12,7 @@ function Landing(props) {
 	const [password, setPass] = useState('');
 	const [email, setEmail] = useState('');
 	const [needAcct, setNeedAcct] = useState(false);
+	const [twitter, setTwitter] = useState(false);
 
 	let login = (ev) => {
 		ev.preventDefault();
@@ -39,6 +40,16 @@ function Landing(props) {
 			.catch((err) => alert(err.response.data));
 	};
 
+	useEffect(() => {
+		if (props.user.isLoggedIn) {
+			console.log('push', props);
+			props.history.push('/dashboard');
+		} else if (typeof props.user.isloggedIn === 'boolean') {
+			console.log('stay', props);
+			setTwitter(true);
+		}
+	}, [props.user.isLoggedIn]);
+
 	return (
 		<div className='Landing'>
 			<h1>Play 4 Keeps Fantasy Football Draft</h1>
@@ -65,7 +76,7 @@ function Landing(props) {
 					/>
 				)}
 			</div>
-			<TwitterContainer />
+			<TwitterContainer style={twitter ? {} : { display: 'none' }} />
 		</div>
 	);
 }

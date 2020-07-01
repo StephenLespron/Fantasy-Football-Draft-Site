@@ -32,11 +32,17 @@ function Header(props) {
 		};
 	};
 
+	let display =
+		!props.user.isLoggedIn ||
+		props.location.pathname.includes('/teams') ||
+		props.location.pathname.includes('/board')
+			? false
+			: true;
+
 	return (
 		<div>
-			<div
-				className='Header'
-				style={!props.user.isLoggedIn ? { display: 'none' } : {}}>
+			{console.log(display)}
+			<div className='Header' style={!display ? { display: 'none' } : {}}>
 				<div>
 					<img
 						alt='logo'
@@ -59,7 +65,7 @@ function Header(props) {
 			</div>
 			<div
 				className={!clickedMenu ? 'navMenu' : 'navMenuOpen navMenu'}
-				style={!props.user.isLoggedIn ? { display: 'none' } : {}}>
+				style={!display ? { display: 'none' } : {}}>
 				<nav>
 					<Link to={addPrevRoute('/new-draft')}>
 						<li>New Draft</li>

@@ -61,6 +61,6 @@ function TeamPage(props) {
 	);
 }
 
-let mapStateToProps = (state) => state;
+let mapStateToProps = (state) => ({ draft: state.draft });
 
 export default connect(mapStateToProps, { loadDraft })(TeamPage);
