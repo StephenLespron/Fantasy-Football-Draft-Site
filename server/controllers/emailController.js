@@ -3,7 +3,9 @@ const nodemailer = require('nodemailer'),
 
 module.exports = async (req, res) => {
 	const db = req.app.get('db'),
-		{ username, draftId, draftDate, email } = req.body;
+		{ username, draftId, email } = req.body;
+
+	console.log(draftId);
 
 	let players;
 
@@ -21,6 +23,12 @@ module.exports = async (req, res) => {
 				});
 		})
 		.catch(() => `unable to get players`);
+
+	let draftDate = await db.get_draft_date(+draftId);
+	let date = new Date(draftDate[0].date);
+	let month = date.getMonth() + 1;
+	let day = date.getDate();
+	let year = date.getFullYear();
 
 	let rows = players.join('');
 
@@ -44,7 +52,7 @@ module.exports = async (req, res) => {
 	const mailOptions = {
 		from: EMAIL_USER,
 		to: email,
-		subject: `Draft results (${draftDate})`,
+		subject: `Draft results (${month}-${day}-${year})`,
 		html: `<html>
         <head>
           <style>

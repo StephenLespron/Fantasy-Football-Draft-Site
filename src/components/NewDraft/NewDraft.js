@@ -34,7 +34,7 @@ function NewDraft(props) {
 		axios
 			.post(`api/createDraft/${props.user.userId}`, { teams: [...teams] })
 			.then((res) => {
-				props.startDraft(res.data.draftId, res.data.teams);
+				props.startDraft(res.data.teams);
 				props.history.push(`/draft/${res.data.draftId}/manager`);
 			})
 			.catch((err) => console.log(err));

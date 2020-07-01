@@ -19,10 +19,10 @@ function Dashboard(props) {
 			.catch((err) => alert(err.response.data));
 	}
 
-	function sendEmail(draftId, draftDate) {
+	function sendEmail(draftId) {
 		const { username, email } = props.user;
 		axios
-			.post('sendEmail', { username, email, draftId, draftDate })
+			.post('sendEmail', { username, email, draftId })
 			.then(() => alert('Email sent successfully!'))
 			.catch((err) => alert(err.response.data));
 	}
@@ -51,9 +51,7 @@ function Dashboard(props) {
 								<input
 									type='button'
 									value='Send Email'
-									onClick={() =>
-										sendEmail(el.draft_id, `${month}-${day}-${year}`)
-									}
+									onClick={() => sendEmail(el.draft_id)}
 								/>
 							</div>
 						</div>
