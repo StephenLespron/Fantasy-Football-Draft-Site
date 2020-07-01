@@ -256,15 +256,14 @@ function Manager(props) {
 		<div className='Manager'>
 			<div id='linkBoard'>
 				<p>
-					Go to
-					{` www.lespron.dev/#/draft/${props.match.params.draftId}/board`} to
-					view the draftboard,
+					Go to Draft Tools at lespron.dev and provide Draft Id #
+					{props.match.params.draftId} to view the draft board,
 				</p>
 				<Link to={`/draft/${props.match.params.draftId}/board`} target='_blank'>
 					<p style={{ marginLeft: '5px' }}> {` or click here!`}</p>
 				</Link>
 			</div>
-			<p id='teamView'>{`www.lespron.dev/#/draft/${props.match.params.draftId}/teams for the TeamView`}</p>
+			<p id='teamView'>{`lespron.dev Draft Id #${props.match.params.draftId} for the Team View`}</p>
 			<div id='controllerContainer'>
 				<div>
 					<RunningDraftList />

@@ -90,11 +90,11 @@ input::-webkit-inner-spin-button {
 	margin: 2px 0px;
 }
 
-.playerBox:nth-child(2n + 2) {
-	background-color: gb(218, 218, 218);
+.playerBox:nth-last-child(2n + 2) {
+	background-color: rgb(218, 218, 218);
 }
 
-.playerBox:nth-child(2n + 1) {
+.playerBox:nth-last-child(2n + 1) {
 	background-color: rgb(158, 97, 97);
 }
 
