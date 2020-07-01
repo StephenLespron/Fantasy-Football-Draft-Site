@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getUser } from '../../ducks/userReducer';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../ducks/userReducer';
@@ -23,6 +24,15 @@ function Header(props) {
 	function toggleClicked() {
 		setClicked(!clickedMenu);
 	}
+
+	useEffect(() => {
+		if (!props.user.isLoggedIn) {
+			console.log(`tried`);
+			props.getUser();
+		} else {
+			props.history.push('/dashboard');
+		}
+	}, [props.user.isLoggedIn]);
 
 	return (
 		<div>
@@ -72,4 +82,6 @@ let mapStateToProps = (state) => {
 	return { user: state.user };
 };
 
-export default connect(mapStateToProps, { logout })(withRouter(Header));
+export default connect(mapStateToProps, { logout, getUser })(
+	withRouter(Header)
+);

@@ -30,11 +30,14 @@ export function logout() {
 }
 
 export function getUser() {
-	const user = axios
+	let user;
+
+	axios
 		.get(`auth/getUser`)
+		.then((res) => (user = res.data))
 		.catch(() => console.log('No users logged in'));
 
-	return { type: GET_USER, payload: user.data };
+	return { type: GET_USER, payload: user };
 }
 
 export default function (state = initialState, action) {
@@ -43,12 +46,9 @@ export default function (state = initialState, action) {
 			return { ...state, ...action.payload, isLoggedIn: true };
 		case LOGOUT_USER:
 			return { ...state, ...action.payload };
-		case GET_USER + '_PENDING':
-			return state;
-		case GET_USER + '_FULFILLED':
+		case GET_USER:
+			console.log(action.payload);
 			return { ...state, ...action.payload, isLoggedIn: true };
-		case GET_USER + '_REJECTED':
-			return initialState;
 		default:
 			return state;
 	}
