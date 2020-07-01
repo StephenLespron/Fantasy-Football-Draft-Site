@@ -2,9 +2,8 @@ import React from 'react';
 import { Route, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function ProtectedRoute({ exact = false, path, component, roles }) {
+function ProtectedRoute({ exact = false, path, component }) {
 	const { isLoggedIn } = useSelector((state) => {
-		console.log(state.user);
 		return state.user;
 	});
 
@@ -12,15 +11,16 @@ function ProtectedRoute({ exact = false, path, component, roles }) {
 
 	return (
 		<>
-			isLoggedIn ? {<Route exact={exact} path={path} component={component} />} :
-			{
+			{isLoggedIn ? (
+				<Route exact={exact} path={path} component={component} />
+			) : (
 				<Redirect
 					to={{
 						pathname: location?.state?.from ? location?.state?.from : '/',
 						state: { from: location.pathname },
 					}}
 				/>
-			}
+			)}
 		</>
 	);
 }

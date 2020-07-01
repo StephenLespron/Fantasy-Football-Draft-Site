@@ -1,11 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 
 import Landing from './components/Landing/Landing';
 import TeamPage from './components/TeamPage/TeamPage';
 import DraftBoard from './components/DraftBoard/DraftBoard';
-import ProtectedRoute from './ProtectedRoute';
-
 import Dashboard from './components/Dashboard/Dashboard';
 import Manager from './components/Manager/Manager';
 import Settings from './components/Settings/Settings';

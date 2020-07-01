@@ -68,7 +68,7 @@ module.exports = {
 	},
 
 	getUser: (req, res) => {
-		if (req.session.user) {
+		if (req && req.session && req.session.user) {
 			return res.status(200).send(req.session.user);
 		} else {
 			res.status(404).send('No users logged in');

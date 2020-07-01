@@ -29,14 +29,8 @@ export function logout() {
 	};
 }
 
-export function getUser() {
-	let user;
-
-	axios
-		.get(`auth/getUser`)
-		.then((res) => ({ type: GET_USER, payload: res.data[0] }))
-		.catch(() => ({ type: LOGOUT_USER, payload: initialState }));
-
+export function getUser(user) {
+	console.log(user);
 	return { type: GET_USER, payload: user };
 }
 

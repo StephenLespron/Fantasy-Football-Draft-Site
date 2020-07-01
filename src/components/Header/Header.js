@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUser } from '../../ducks/userReducer';
-import { withRouter, Link, Redirect } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../ducks/userReducer';
 import menu from './hamburger.png';
@@ -81,6 +80,4 @@ let mapStateToProps = (state) => {
 	return { user: state.user };
 };
 
-export default connect(mapStateToProps, { logout, getUser })(
-	withRouter(Header)
-);
+export default connect(mapStateToProps, { logout })(withRouter(Header));

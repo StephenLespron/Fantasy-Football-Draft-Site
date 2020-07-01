@@ -17,9 +17,9 @@ function Landing(props) {
 		ev.preventDefault();
 		axios
 			.post('auth/login', { username, password })
-			.then((res) => {
+			.then(async (res) => {
 				const { userId, email } = res.data;
-				props.login({ userId, username, email });
+				await props.login({ userId, username, email });
 				props.history.push('/dashboard');
 			})
 			.catch((err) => {
