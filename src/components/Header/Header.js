@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUser } from '../../ducks/userReducer';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../ducks/userReducer';
 import menu from './hamburger.png';
@@ -11,7 +11,6 @@ function Header(props) {
 	let [clickedMenu, setClicked] = useState(false);
 
 	useEffect(() => {
-		// props.getUser();
 		setClicked(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.history.location.pathname]);
@@ -25,14 +24,14 @@ function Header(props) {
 		setClicked(!clickedMenu);
 	}
 
-	useEffect(() => {
-		if (!props.user.isLoggedIn) {
-			console.log(`tried`);
-			props.getUser();
-		} else {
-			props.history.push('/dashboard');
-		}
-	}, [props.user.isLoggedIn]);
+	let addPrevRoute = (newLoc) => (prevLoc) => {
+		return {
+			pathname: newLoc,
+			state: {
+				from: prevLoc.pathname,
+			},
+		};
+	};
 
 	return (
 		<div>
@@ -63,13 +62,13 @@ function Header(props) {
 				className={!clickedMenu ? 'navMenu' : 'navMenuOpen navMenu'}
 				style={!props.user.isLoggedIn ? { display: 'none' } : {}}>
 				<nav>
-					<Link to='/new-draft'>
+					<Link to={addPrevRoute('/new-draft')}>
 						<li>New Draft</li>
 					</Link>
-					<Link to='/dashboard'>
+					<Link to={addPrevRoute('/dashboard')}>
 						<li>Previous drafts</li>
 					</Link>
-					<Link to='/settings'>
+					<Link to={addPrevRoute('/settings')}>
 						<li>Settings</li>
 					</Link>
 				</nav>

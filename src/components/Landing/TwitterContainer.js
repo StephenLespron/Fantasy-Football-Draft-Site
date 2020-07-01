@@ -13,9 +13,9 @@ function TwitterContainer() {
 						width: 'auto',
 					}}
 					theme='dark'
-					noHeader='true'
-					noBorders='true'
-					noFooter='true'></TwitterTimelineEmbed>
+					noHeader={true}
+					noBorders={true}
+					noFooter={true}></TwitterTimelineEmbed>
 			</div>
 			<div className='twitterEmbed  twit4'>
 				<TwitterTimelineEmbed
@@ -26,9 +26,9 @@ function TwitterContainer() {
 						width: 'auto',
 					}}
 					theme='dark'
-					noHeader='true'
-					noBorders='true'
-					noFooter='true'></TwitterTimelineEmbed>
+					noHeader={true}
+					noBorders={true}
+					noFooter={true}></TwitterTimelineEmbed>
 			</div>
 			<div className='twitterEmbed twit3'>
 				<TwitterTimelineEmbed
@@ -39,9 +39,9 @@ function TwitterContainer() {
 						width: 'auto',
 					}}
 					theme='dark'
-					noHeader='true'
-					noBorders='true'
-					noFooter='true'></TwitterTimelineEmbed>
+					noHeader={true}
+					noBorders={true}
+					noFooter={true}></TwitterTimelineEmbed>
 			</div>
 			<div className='twitterEmbed twit2'>
 				<TwitterTimelineEmbed
@@ -52,11 +52,11 @@ function TwitterContainer() {
 						width: 'auto',
 						// height: 20,
 					}}
-					autoHeight='true'
+					autoHeight={true}
 					theme='dark'
-					noHeader='true'
-					noBorders='true'
-					noFooter='true'></TwitterTimelineEmbed>
+					noHeader={true}
+					noBorders={true}
+					noFooter={true}></TwitterTimelineEmbed>
 			</div>
 
 			<div className='twitterEmbed  twit5'>
@@ -68,9 +68,9 @@ function TwitterContainer() {
 						width: 'auto',
 					}}
 					theme='dark'
-					noHeader='true'
-					noBorders='true'
-					noFooter='true'></TwitterTimelineEmbed>
+					noHeader={true}
+					noBorders={true}
+					noFooter={true}></TwitterTimelineEmbed>
 			</div>
 		</section>
 	);

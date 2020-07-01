@@ -34,8 +34,8 @@ export function getUser() {
 
 	axios
 		.get(`auth/getUser`)
-		.then((res) => (user = res.data))
-		.catch(() => console.log('No users logged in'));
+		.then((res) => ({ type: GET_USER, payload: res.data[0] }))
+		.catch(() => ({ type: LOGOUT_USER, payload: initialState }));
 
 	return { type: GET_USER, payload: user };
 }

@@ -23,11 +23,7 @@ function Landing(props) {
 				props.history.push('/dashboard');
 			})
 			.catch((err) => {
-				alert(err.response.data);
-				if (err.response.data === 'A user is already logged in') {
-					props.getUser();
-					props.history.push('/dashboard');
-				}
+				return alert(err.response.data);
 			});
 	};
 
