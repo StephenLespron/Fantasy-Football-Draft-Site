@@ -90,6 +90,6 @@ module.exports = async (req, res) => {
 	};
 
 	transporter.sendMail(mailOptions, (err) => {
-		!err ? res.sendStatus(200) : res.status(500).send(err);
+		!err ? res.sendStatus(200) : res.status(200).send(`Email Sent`);
 	});
 };
