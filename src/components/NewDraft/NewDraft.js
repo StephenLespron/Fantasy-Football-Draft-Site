@@ -32,7 +32,7 @@ function NewDraft(props) {
 	let startDraft = (ev) => {
 		ev.preventDefault();
 		axios
-			.post(`api/createDraft/${props.user.userId}`, { teams: [...teams] })
+			.post(`/api/createDraft/${props.user.userId}`, { teams: [...teams] })
 			.then((res) => {
 				props.startDraft(res.data.teams);
 				props.history.push(`/draft/${res.data.draftId}/manager`);

@@ -12,7 +12,7 @@ function Dashboard(props) {
 
 	function getTeams(draftId) {
 		axios
-			.get(`api/getTeams/${draftId}`)
+			.get(`/api/getTeams/${draftId}`)
 			.then((res) => {
 				props.startDraft(res.data);
 			})
@@ -29,7 +29,7 @@ function Dashboard(props) {
 
 	useEffect(() => {
 		axios
-			.get(`api/drafts/${props.user.userId}`)
+			.get(`/api/drafts/${props.user.userId}`)
 			.then((res) => {
 				let arr = res.data.map((el) => {
 					let date = new Date(el.date);

@@ -14,7 +14,7 @@ function TeamPage(props) {
 
 	let getPlayers = () => {
 		axios
-			.get(`api/draftedPlayers/${props.match.params.draftId}`)
+			.get(`/api/draftedPlayers/${props.match.params.draftId}`)
 			.then((res) => {
 				let { players, teams } = res.data;
 

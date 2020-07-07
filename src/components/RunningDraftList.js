@@ -30,7 +30,7 @@ function RunningDraftList(props) {
 		delete newAvail.pick;
 
 		axios
-			.delete(`api/removePlayer/${id}`)
+			.delete(`/api/removePlayer/${id}`)
 			.catch((err) => alert(err.response.data));
 
 		props.undraftPlayer(newDrafted, {

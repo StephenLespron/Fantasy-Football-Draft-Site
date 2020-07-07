@@ -18,7 +18,7 @@ function DraftBoard(props) {
 	function getNewPlayers(arg) {
 		let length = arg;
 		axios
-			.get(`api/draftedPlayers/${props.match.params.draftId}`)
+			.get(`/api/draftedPlayers/${props.match.params.draftId}`)
 			.then((res) => {
 				console.log(
 					`arg: ${arg}`,
@@ -46,7 +46,7 @@ function DraftBoard(props) {
 
 	useEffect(() => {
 		axios
-			.get(`api/draftedPlayers/${props.match.params.draftId}`)
+			.get(`/api/draftedPlayers/${props.match.params.draftId}`)
 			.then(async (res) => {
 				setTeams(res.data.teams);
 				getNewPlayers(res.data.players.length);

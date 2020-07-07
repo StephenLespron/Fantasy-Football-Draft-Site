@@ -29,7 +29,7 @@ function Manager(props) {
 		if (props.draft.availPlayers) {
 			if (props.draft.availPlayers.length === 0) {
 				axios
-					.post(`api/players/${props.match.params.draftId}`)
+					.post(`/api/players/${props.match.params.draftId}`)
 					.then((res) => {
 						const { drafted, avail } = res.data;
 						props.getPlayers(drafted, avail);
@@ -154,7 +154,7 @@ function Manager(props) {
 		);
 
 		axios
-			.post('api/addPlayer', { ...newDrafted })
+			.post('/api/addPlayer', { ...newDrafted })
 			.then(() => 'success')
 			.catch((err) => err.response.data);
 	};
