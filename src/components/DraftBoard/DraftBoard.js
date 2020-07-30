@@ -20,20 +20,13 @@ function DraftBoard(props) {
 		axios
 			.get(`/api/draftedPlayers/${props.match.params.draftId}`)
 			.then((res) => {
-				console.log(
-					`arg: ${arg}`,
-					`players: ${length}`,
-					`res.data: ${res.data.players.length}`
-				);
 				if (length !== res.data.players.length) {
 					length = res.data.players.length;
 
 					let sort = res.data.players.slice().sort((a, b) => {
-						console.log(a.timestamp, b.timestamp);
 
 						return +a.timestamp < +b.timestamp ? 1 : -1;
 					}, 0);
-					console.log(sort[0], sort[sort.length - 1], Date.now());
 					setNewPick(sort[0]);
 
 					setPlayers(res.data.players);
@@ -58,7 +51,6 @@ function DraftBoard(props) {
 		if (players) {
 			createDB();
 			if (newPick) {
-				console.log(newPick);
 				setLoading(true);
 				alert.play();
 				setTimeout(() => {

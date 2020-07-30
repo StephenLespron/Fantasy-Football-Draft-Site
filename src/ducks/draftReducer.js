@@ -11,7 +11,6 @@ const DRAFT_PLAYER = 'DRAFT_PLAYER';
 const UNDRAFT_PLAYER = 'UNDRAFT_PLAYER';
 
 export function startDraft(teams) {
-	console.log('state teams', teams);
 	return {
 		type: START_DRAFT,
 		payload: teams,

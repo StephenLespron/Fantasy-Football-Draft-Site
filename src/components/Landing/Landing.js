@@ -15,7 +15,7 @@ function Landing(props) {
 	const [needAcct, setNeedAcct] = useState(false);
 	const [twitter, setTwitter] = useState(false);
 	const [draftTools, toggleDraftTools] = useState(false);
-	const [draftId, setDraftId] = useState(null);
+	const [draftId, setDraftId] = useState(0);
 
 	let login = (ev) => {
 		ev.preventDefault();
@@ -45,10 +45,8 @@ function Landing(props) {
 
 	useEffect(() => {
 		if (props.user.isLoggedIn) {
-			console.log('push', props);
 			props.history.push('/dashboard');
-		} else if (typeof props.user.isloggedIn === 'boolean') {
-			console.log('stay', props);
+		} else if (typeof props.user.isLoggedIn === 'boolean') {
 			setTwitter(true);
 		}
 	}, [props.user.isLoggedIn]);
@@ -116,7 +114,7 @@ function Landing(props) {
 					/>
 				)}
 			</div>
-			<TwitterContainer style={twitter ? {} : { display: 'none' }} />
+			{twitter ? <TwitterContainer /> : <></>}
 		</div>
 	);
 }

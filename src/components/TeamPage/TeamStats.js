@@ -61,9 +61,7 @@ function TeamStats(props) {
 		let [currentTeamData] = teamsArr.splice(currentTeamIndex, 1);
 
 		currentTeamData.players = currentTeamData.players.map((el) => el.ppg);
-		console.log(currentTeamData);
 
-		console.log(teamsArr);
 		let otherTeamsData = teamsArr[0].players.map((el, ind) => {
 			let denom = 0;
 

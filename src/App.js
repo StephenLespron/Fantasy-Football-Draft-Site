@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { getUser } from './ducks/userReducer';
+import { getUser, login } from './ducks/userReducer';
 import routes from './routes';
 import Header from './components/Header/Header';
 import './App.css';
@@ -10,12 +10,14 @@ import { withRouter } from 'react-router-dom';
 function App(props) {
 	useEffect(() => {
 		axios
-			.get('auth/getUser')
+			.get('/auth/getUser')
 			.then(async (res) => {
-				await props.getUser(res.data);
+				await props.login(res.data);
 				props.history.push(props.location.pathname);
 			})
-			.then((err) => console.log(err));
+			.catch(() => {
+				props.getUser();
+			});
 	}, []);
 
 	return (
@@ -28,4 +30,4 @@ function App(props) {
 
 let mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, { getUser })(withRouter(App));
+export default connect(mapStateToProps, { getUser, login })(withRouter(App));

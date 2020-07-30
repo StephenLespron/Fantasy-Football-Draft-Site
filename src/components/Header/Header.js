@@ -74,7 +74,6 @@ function Header(props) {
 
 	return (
 		<div>
-			{console.log(display)}
 			<div className='Header' style={!display ? { display: 'none' } : {}}>
 				<div>
 					<img

@@ -4,7 +4,7 @@ const initialState = {
 	userId: null,
 	username: '',
 	email: '',
-	isLoggedIn: false,
+	isLoggedIn: null,
 };
 
 const LOGIN_USER = 'LOGIN_USER',
@@ -29,9 +29,8 @@ export function logout() {
 	};
 }
 
-export function getUser(user) {
-	console.log(user);
-	return { type: GET_USER, payload: user };
+export function getUser() {
+	return { type: GET_USER, payload: null };
 }
 
 export default function (state = initialState, action) {
@@ -39,10 +38,9 @@ export default function (state = initialState, action) {
 		case LOGIN_USER:
 			return { ...state, ...action.payload, isLoggedIn: true };
 		case LOGOUT_USER:
-			return { ...state, ...action.payload };
+			return { ...state, ...action.payload, isLoggedIn: false };
 		case GET_USER:
-			console.log(action.payload);
-			return { ...state, ...action.payload, isLoggedIn: true };
+			return { ...state, isLoggedIn: false };
 		default:
 			return state;
 	}
