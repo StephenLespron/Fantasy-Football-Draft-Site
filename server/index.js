@@ -24,7 +24,7 @@ const authCtrl = require('./controllers/authController'),
 // 	});
 // });
 
-// app.use(express.static(`${__dirname}/../build`));
+app.use(express.static(`${__dirname}/../build`));
 
 app.use(express.json());
 app.use(
@@ -58,6 +58,10 @@ app.delete('/api/removePlayer/:playerId', dataCtrl.delPlayer);
 app.get(`/api/draftedPlayers/:draftId`, dataCtrl.getDraftedPlayers);
 app.get(`/api/getTeams/:draftId`, dataCtrl.getTeams);
 app.post('/sendEmail', emailCtrl);
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 massive({
 	connectionString: CONNECTION_STRING,
