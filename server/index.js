@@ -1,9 +1,11 @@
 require('dotenv').config();
 
 const express = require('express'),
+	path = require('path'),
 	massive = require('massive'),
 	session = require('express-session'),
 	app = express(),
+	router = express.Router(),
 	{ SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 
 const authCtrl = require('./controllers/authController'),
@@ -13,6 +15,10 @@ const authCtrl = require('./controllers/authController'),
 	playerMiddleWare = require('./middleWares/playerMiddleWare'),
 	addPlayerMiddleWare = require('./middleWares/addPlayerMiddleWare'),
 	draftedPlayersMiddleWare = require('./middleWares/draftedPlayersMiddleWare');
+
+router.get('*', function (req, res) {
+	res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 app.use(express.static(`${__dirname}/../build`));
 
