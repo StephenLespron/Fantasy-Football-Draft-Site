@@ -5,7 +5,7 @@ const express = require('express'),
 	massive = require('massive'),
 	session = require('express-session'),
 	app = express(),
-	router = express.Router(),
+	// router = express.Router(),
 	{ SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 
 const authCtrl = require('./controllers/authController'),
@@ -16,11 +16,15 @@ const authCtrl = require('./controllers/authController'),
 	addPlayerMiddleWare = require('./middleWares/addPlayerMiddleWare'),
 	draftedPlayersMiddleWare = require('./middleWares/draftedPlayersMiddleWare');
 
-router.get('*', function (req, res) {
-	res.sendFile(path.join(__dirname, '../build/index.html'));
-});
+// app.get('/*', function (req, res) {
+// 	res.sendFile(path.resolve(__dirname, 'index.html'), function (err) {
+// 		if (err) {
+// 			res.status(500).send(err);
+// 		}
+// 	});
+// });
 
-app.use(express.static(`${__dirname}/../build`));
+// app.use(express.static(`${__dirname}/../build`));
 
 app.use(express.json());
 app.use(
