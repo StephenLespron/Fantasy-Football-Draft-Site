@@ -28,6 +28,7 @@ module.exports = {
 		//Maps over player array and removes unneeded data
 		players = players.map((elem) => {
 			//converts position code to string
+
 			let position =
 				codes.positions[
 					codes.positions.findIndex(
@@ -42,7 +43,11 @@ module.exports = {
 				].team;
 
 			//removes any player projected less than 30 points on the season
+
+			// console.log(elem.player.stats[5]);
+
 			if (
+				elem.player.stats &&
 				+elem.player.stats[
 					elem.player.stats.findIndex((ind) => +ind.id === 102020)
 				].appliedTotal > 30

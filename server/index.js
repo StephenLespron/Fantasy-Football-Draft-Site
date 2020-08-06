@@ -59,10 +59,6 @@ app.get(`/api/draftedPlayers/:draftId`, dataCtrl.getDraftedPlayers);
 app.get(`/api/getTeams/:draftId`, dataCtrl.getTeams);
 app.post('/sendEmail', emailCtrl);
 
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname + '/../build/index.html'));
-});
-
 massive({
 	connectionString: CONNECTION_STRING,
 	ssl: { rejectUnauthorized: false },
