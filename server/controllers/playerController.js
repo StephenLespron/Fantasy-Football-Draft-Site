@@ -44,8 +44,6 @@ module.exports = {
 
 			//removes any player projected less than 30 points on the season
 
-			// console.log(elem.player.stats[5]);
-
 			if (
 				elem.player.stats &&
 				+elem.player.stats[
